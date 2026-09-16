@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ARC/PREP — Citi UI Engineering Interview Brief</title>
+  <meta name="description" content="Interview operations brief for a UI software engineering role at Citi: 67 flashcards across JS, CSS, React, TypeScript, accessibility, system design, software architecture and behavioral rounds, plus sourced company intel on Citi itself." />
+  <meta name="theme-color" content="#0a1420" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b1526'/%3E%3Cpath d='M4 24 A 14 14 0 0 1 28 24' fill='none' stroke='%230071c5' stroke-width='4'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    /* Pre-paint theme — no flash of wrong theme */
+    (() => {
+      try {
+        const s = JSON.parse(localStorage.getItem("arcprep-v1") || "{}");
+        const t = s.theme || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+        document.documentElement.dataset.theme = t;
+      } catch { /* default stays dark */ }
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#deck">Skip to flashcards</a>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="ARC slash PREP home">
+      <svg class="brand-arc" viewBox="0 0 36 20" aria-hidden="true"><path d="M2 18 A 16 16 0 0 1 34 18" pathLength="100" /></svg>
+      <span class="brand-word">ARC<em>/</em>PREP</span>
+      <span class="brand-sub">Citi · UI Engineering</span>
+    </a>
+    <div class="topbar-right">
+      <span class="session-tag" aria-hidden="true">SESSION&nbsp;T-0</span>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch theme (light / dark)">
+        <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5 5l1.8 1.8M17.2 17.2L19 19M19 5l-1.8 1.8M6.8 17.2L5 19"/></svg>
+        <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.6A8.6 8.6 0 1 1 9.4 3.8a7 7 0 1 0 10.8 10.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero shell">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Interview operations brief · <span class="mono">REF&nbsp;UI-SE/CITI</span></p>
+          <h1 class="display">
+            Walk in <span class="arc-word"><em>prepared</em><svg viewBox="0 0 120 22" preserveAspectRatio="none" aria-hidden="true"><path d="M2 20 A 60 19 0 0 1 118 20" pathLength="100"/></svg></span>,<br/>not lucky.
+          </h1>
+          <p class="lede">
+            A drill deck for the UI software engineering loop — JavaScript, CSS, React,
+            TypeScript, accessibility, system design, <strong>software architecture</strong>,
+            and the banking-specific questions most candidates never prepare.
+            Mark what you know. Own the rest.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#deck">Start the deck</a>
+            <a class="btn" href="#firm">Know the firm</a>
+            <a class="btn" href="#plan">Day-of plan</a>
+          </div>
+        </div>
+        <div class="hero-arcwrap">
+          <svg class="hero-arc" viewBox="0 0 300 170" role="img" aria-label="Progress arc showing percentage of cards mastered">
+            <path class="arc-base" d="M18 152 A 132 132 0 0 1 282 152" pathLength="100" />
+            <path class="arc-fill" id="arcFill" d="M18 152 A 132 132 0 0 1 282 152" pathLength="100" />
+            <path class="arc-red" id="arcRed" d="M18 152 A 132 132 0 0 1 282 152" pathLength="100" />
+          </svg>
+          <div class="arc-label">
+            <span class="arc-pct mono" id="arcPct">0%</span>
+            <span class="arc-cap">mastered</span>
+          </div>
+        </div>
+      </div>
+      <div class="statstrip" role="list" aria-label="Deck statistics">
+        <div role="listitem"><span class="stat-num" id="statCards">—</span><span class="stat-lab">cards</span></div>
+        <div role="listitem"><span class="stat-num">8</span><span class="stat-lab">tracks</span></div>
+        <div role="listitem"><span class="stat-num" id="statKnown">0</span><span class="stat-lab">known</span></div>
+        <div role="listitem"><span class="stat-num" id="statLeft">—</span><span class="stat-lab">to review</span></div>
+      </div>
+    </section>
+
+    <!-- ============ DECK ============ -->
+    <section class="deck-sec shell" id="deck" aria-labelledby="deckTitle">
+      <header class="sec-head">
+        <span class="sec-no mono">01</span>
+        <h2 id="deckTitle">The drill deck</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+        <span class="sec-note mono" id="deckNote"></span>
+      </header>
+
+      <div class="tabs" role="tablist" aria-label="Question tracks" id="tablist"></div>
+
+      <div class="deck-toolbar">
+        <button class="chip" id="reviewToggle" type="button" aria-pressed="false">Review unknown only</button>
+        <button class="chip" id="shuffleBtn" type="button" aria-pressed="false">Shuffle</button>
+        <button class="chip" id="jumpUnknown" type="button">Jump to first unknown</button>
+        <button class="chip chip-danger" id="resetBtn" type="button">Reset progress</button>
+      </div>
+
+      <div class="deck-progress" aria-hidden="true">
+        <span class="dp-known" id="dpKnown"></span>
+        <span class="dp-unknown" id="dpUnknown"></span>
+      </div>
+
+      <article class="card" id="cardRoot" aria-label="Flashcard">
+        <header class="card-top">
+          <span class="card-tag mono" id="cardTag"></span>
+          <span class="card-count mono" id="cardCount"></span>
+        </header>
+        <h3 class="card-q" id="cardQ"></h3>
+        <div class="card-a" id="cardA" hidden></div>
+        <button class="btn btn-reveal" id="revealBtn" type="button">Reveal answer</button>
+        <footer class="card-foot">
+          <div class="foot-group">
+            <button class="btn btn-ghost" id="prevBtn" type="button" aria-label="Previous card">←</button>
+            <button class="btn btn-ghost" id="nextBtn" type="button" aria-label="Next card">→</button>
+          </div>
+          <div class="foot-group">
+            <button class="btn btn-again" id="againBtn" type="button" aria-pressed="false">Again <kbd>U</kbd></button>
+            <button class="btn btn-know" id="knowBtn" type="button" aria-pressed="false">Know it <kbd>K</kbd></button>
+          </div>
+        </footer>
+      </article>
+
+      <p class="keys mono" aria-hidden="true">
+        <kbd>space</kbd> reveal · <kbd>←</kbd><kbd>→</kbd> navigate · <kbd>k</kbd> know it · <kbd>u</kbd> again
+      </p>
+      <p class="visually-hidden" role="status" id="liveStatus"></p>
+    </section>
+
+    <!-- ============ PLAN ============ -->
+    <section class="plan-sec shell" id="plan" aria-labelledby="planTitle">
+      <header class="sec-head">
+        <span class="sec-no mono">02</span>
+        <h2 id="planTitle">The 7-day countdown</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+      </header>
+      <div class="plan-grid">
+        <div class="plan-list">
+          <ol id="planList"></ol>
+        </div>
+        <div class="check-wrap">
+          <div class="check-card" id="checkNight"><h3>Night before</h3></div>
+          <div class="check-card" id="checkDay"><h3>Day of</h3></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STAR ============ -->
+    <section class="star-sec shell" aria-labelledby="starTitle">
+      <header class="sec-head">
+        <span class="sec-no mono">03</span>
+        <h2 id="starTitle">Your STAR stories</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+      </header>
+      <p class="star-lede">Behavioral rounds are won on prepared specifics, not charm. Draft three stories below — they autosave in this browser.</p>
+      <div class="star-grid">
+        <label class="star-slot">
+          <span class="star-title">The production fire</span>
+          <span class="star-hint">Situation → impact. What broke, who felt it, how you diagnosed, the fix, the guardrail you added after.</span>
+          <textarea id="star1" rows="6" placeholder="S/T/A/R — one honest sentence each…"></textarea>
+        </label>
+        <label class="star-slot">
+          <span class="star-title">The disagreement</span>
+          <span class="star-hint">With a PM or designer. How you argued with data, the compromise, and what the metric said afterwards.</span>
+          <textarea id="star2" rows="6" placeholder="S/T/A/R — one honest sentence each…"></textarea>
+        </label>
+        <label class="star-slot">
+          <span class="star-title">The deep system</span>
+          <span class="star-hint">Something you built that outlived you: the constraint, the design call you'd defend, the adoption story.</span>
+          <textarea id="star3" rows="6" placeholder="S/T/A/R — one honest sentence each…"></textarea>
+        </label>
+      </div>
+    </section>
+
+    <!-- ============ REFERENCE ============ -->
+    <section class="ref-sec shell" aria-labelledby="refTitle">
+      <header class="sec-head">
+        <span class="sec-no mono">04</span>
+        <h2 id="refTitle">Last-hour reference</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+      </header>
+      <div class="ref-grid">
+        <div class="ref-card">
+          <h3>Event loop order</h3>
+          <ol>
+            <li>Run current macrotask</li>
+            <li>Drain <strong>all</strong> microtasks</li>
+            <li>rAF → style → layout → paint</li>
+            <li>Next macrotask…</li>
+          </ol>
+        </div>
+        <div class="ref-card">
+          <h3>Specificity scale</h3>
+          <ol>
+            <li><code>style=""</code> inline</li>
+            <li><code>#id</code></li>
+            <li><code>.class</code> / <code>[attr]</code> / <code>:hover</code></li>
+            <li><code>element</code> / <code>::before</code></li>
+          </ol>
+          <p class="ref-foot"><code>@layer</code>: later layers win; unlayered beats layered.</p>
+        </div>
+        <div class="ref-card">
+          <h3>Vitals thresholds</h3>
+          <table>
+            <tr><td>LCP</td><td>&lt; 2.5s</td></tr>
+            <tr><td>INP</td><td>&lt; 200ms</td></tr>
+            <tr><td>CLS</td><td>&lt; 0.1</td></tr>
+            <tr><td>TTFB</td><td>&lt; 800ms</td></tr>
+          </table>
+          <p class="ref-foot">Field data, 75th percentile — not lab Lighthouse.</p>
+        </div>
+        <div class="ref-card">
+          <h3>HTTP status drill</h3>
+          <table>
+            <tr><td>301 / 302</td><td>permanent / temporary</td></tr>
+            <tr><td>304</td><td>not modified (cache)</td></tr>
+            <tr><td>401 / 403</td><td>who? / not allowed</td></tr>
+            <tr><td>422</td><td>semantically invalid</td></tr>
+            <tr><td>429</td><td>too many requests</td></tr>
+          </table>
+        </div>
+        <div class="ref-card">
+          <h3>Cache headers</h3>
+          <ul>
+            <li><code>Cache-Control: max-age=31536000, immutable</code> — hashed assets</li>
+            <li><code>no-cache</code> — revalidate: ETag / If-None-Match → 304</li>
+            <li><code>stale-while-revalidate</code> — serve stale, refresh after</li>
+            <li><code>Vary</code> — key the cache correctly</li>
+          </ul>
+        </div>
+        <div class="ref-card">
+          <h3>Whiteboard openers</h3>
+          <ul>
+            <li>Restate the problem. Name users &amp; scale.</li>
+            <li>Clarify: data size, latency budget, a11y scope.</li>
+            <li>Draw states first (empty/loading/error/data).</li>
+            <li>Name the a11y pattern before the pixels.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KNOW THE FIRM ============ -->
+    <section class="firm-sec shell" id="firm" aria-labelledby="firmTitle">
+      <header class="sec-head">
+        <span class="sec-no mono">05</span>
+        <h2 id="firmTitle">Know the firm</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+        <span class="sec-note mono">verified · sep 2026</span>
+      </header>
+
+      <div class="firm-grid">
+        <div class="firm-card">
+          <h3>At a glance</h3>
+          <dl>
+            <div><dt>Founded</dt><dd>June 16, 1812 — City Bank of New York</dd></div>
+            <div><dt>Headquarters</dt><dd>388 Greenwich Street, New York City</dd></div>
+            <div><dt>Listed</dt><dd>NYSE: C</dd></div>
+            <div><dt>Chair &amp; CEO</dt><dd>Jane Fraser, DBE — CEO since Mar 2021, Chair since Oct 2025</dd></div>
+            <div><dt>CFO</dt><dd>Gonzalo Luchetti — since Mar 2026 (Mark Mason → Exec Vice Chair)</dd></div>
+            <div><dt>People</dt><dd>~226,000 employees, in more than 90 countries</dd></div>
+            <div><dt>Reach</dt><dd>Business in 180+ countries &amp; jurisdictions; on-the-ground presence in 90+ markets; 200M+ customer accounts</dd></div>
+            <div><dt>Standing</dt><dd>Third-largest U.S. bank by assets</dd></div>
+            <div><dt>FY2025</dt><dd>$85.2B revenue — highest in over a decade · $17.6B returned to shareholders</dd></div>
+          </dl>
+          <p class="src"><a href="https://www.citigroup.com/global/about-us/heritage" target="_blank" rel="noopener">Citi Heritage</a> · <a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements" target="_blank" rel="noopener">2025 Annual Report</a> · <a href="https://www.wsj.com/finance/banking/citigroup-plans-to-reorganize-u-s-personal-banking-business-names-next-cfo-95d175b9" target="_blank" rel="noopener">WSJ</a></p>
+        </div>
+
+        <div class="firm-card">
+          <h3>The five core businesses</h3>
+          <div class="biz-row"><span class="biz-name">Services</span><span>Treasury &amp; Trade Solutions + Securities Services — payments, cash management, trade, custody. The cross-border core; record revenues 2024 and 2025.</span></div>
+          <div class="biz-row"><span class="biz-name">Markets</span><span>Rates, FX, prime services; revenue +11% in 2025 with strength in fixed income and growing equities scale.</span></div>
+          <div class="biz-row"><span class="biz-name">Banking</span><span>Investment, corporate &amp; commercial banking under Vis Raghavan — record 2025 (+32%), best M&A revenue year in Citi's history.</span></div>
+          <div class="biz-row"><span class="biz-name">Wealth</span><span>Private bank + Citigold, led by Andy Sieg; retail banking and U.S. Citigold were folded in (Nov 2025).</span></div>
+          <div class="biz-row"><span class="biz-name">U.S. Consumer Cards</span><span>Standalone segment since Nov 2025, led by Pam Habner — Citi-branded cards and major co-brand partners.</span></div>
+          <p class="src"><a href="https://www.citigroup.com/global/businesses" target="_blank" rel="noopener">citi — businesses</a> · <a href="https://www.citigroup.com/global/news/press-release/2025/citi-cfo-transition-plans-changes-united-states-personal-banking-business" target="_blank" rel="noopener">Nov 2025 reorg release</a></p>
+        </div>
+
+        <div class="firm-card">
+          <h3>Vision &amp; priorities</h3>
+          <blockquote>“The preeminent banking partner for institutions with cross-border needs, a global leader in wealth management, a valued personal bank in its home market.”</blockquote>
+          <p class="firm-small">Two firm priorities: <strong>improving business performance</strong> and <strong>executing the Transformation</strong>. Simplification continues: exits of most international consumer franchises — Banamex separated (Dec 2024), 25% stake sale agreed, IPO planned; Poland consumer exit; Russia fully exited (Feb 2026). 2026 Investor Day laid out the return targets.</p>
+          <p class="src"><a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements/2026/annual-report/letter-to-shareholders" target="_blank" rel="noopener">2025 Letter to Shareholders</a></p>
+        </div>
+
+        <div class="firm-card">
+          <h3>Tech at Citi</h3>
+          <ul class="firm-list">
+            <li><strong>$9.1B</strong> annual technology &amp; communications spend (FY2024)</li>
+            <li><strong>Google Cloud</strong> strategic multiyear alliance — infra modernization + firmwide AI</li>
+            <li><strong>182,000+</strong> employees using proprietary AI tools; AI coding tools ≈ <strong>100,000 hours/week</strong> of developer capacity</li>
+            <li><strong>Tim Ryan</strong> — Head of Technology &amp; Business Enablement</li>
+            <li>Platforms to name: <strong>CitiDirect</strong> (institutional), <strong>Citi Mobile app</strong>, <strong>Citigold</strong>, <strong>Citi Token Services</strong> (digital assets), <strong>Citi Travel</strong> w/ Booking.com</li>
+            <li>Tech hubs: New York · Tampa · Irving · Jacksonville · Sioux Falls · London · Belfast · Dublin · Warsaw · Budapest · Mumbai · Pune · Chennai · Manila · Mississauga · Singapore</li>
+          </ul>
+          <p class="src"><a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements/2026/annual-report" target="_blank" rel="noopener">2025 10-K</a> · <a href="https://jobs.citi.com" target="_blank" rel="noopener">jobs.citi.com</a></p>
+        </div>
+
+        <div class="firm-card">
+          <h3>Regulatory reality</h3>
+          <ul class="firm-list">
+            <li>Regulators: <strong>Federal Reserve</strong> (Citigroup Inc.) · <strong>OCC</strong> (Citibank N.A.) · CFPB · FDIC</li>
+            <li><strong>Oct 2020</strong> — OCC consent order ($400M CMP) + Fed cease &amp; desist over data governance, risk management, internal controls</li>
+            <li><strong>Jul 2024</strong> — amendment + ≈$135.6M combined penalties ($75M OCC, $60.6M Fed) for insufficient data-quality progress</li>
+            <li><strong>Dec 2025</strong> — OCC terminated its 2024 amendment; most programs "at or nearly at target-state"</li>
+            <li><strong>Why UI cares:</strong> the core deficiency is data quality — your screens must show correct, consistent, auditable data. Transformation is the modernization budget.</li>
+          </ul>
+          <p class="src"><a href="https://www.federalreserve.gov/newsevents/pressreleases/enforcement20240710a.htm" target="_blank" rel="noopener">Fed · Jul 2024</a> · <a href="https://www.occ.treas.gov/news-issuances/news-releases/2024/nr-occ-2024-76.html" target="_blank" rel="noopener">OCC · Jul 2024</a> · <a href="https://www.citigroup.com/global/news/press-release/2025/citi-statement-on-occ-removal-of-amendment-to-consent-order" target="_blank" rel="noopener">Citi · Dec 2025</a></p>
+        </div>
+
+        <div class="firm-card">
+          <h3>Brand &amp; design lore</h3>
+          <ul class="firm-list">
+            <li>The <strong>arc over “citi”</strong> — drawn by <strong>Paula Scher (Pentagram), 1998</strong>, for the Citicorp–Travelers merger; reportedly sketched in the first meeting</li>
+            <li>The arc is the Travelers red umbrella reduced to its curve — the literal umbrella mark was <strong>sold back to Travelers in 2007</strong>; the arc stayed</li>
+            <li>Long-running tagline: <em>“The Citi never sleeps.”</em></li>
+            <li>Interview angle: knowing the mark's lineage (bank + insurer merger logic, Scher/Pentagram) signals design literacy instantly</li>
+            <li>This site's arc motif is a study homage — <strong>not</strong> the mark</li>
+          </ul>
+          <p class="src"><a href="https://www.pentagram.com/about/paula-scher" target="_blank" rel="noopener">Pentagram — Paula Scher</a> · <a href="https://www.wsj.com/articles/SB117137765766107222" target="_blank" rel="noopener">WSJ · umbrella, 2007</a></p>
+        </div>
+      </div>
+
+      <div class="firm-card firm-wide">
+        <h3>Milestones worth quoting</h3>
+        <ol class="mile-list">
+          <li><span class="plan-day">1812</span><span class="plan-txt"><strong>June 16 — City Bank of New York founded</strong>; first president Samuel Osgood. Depository status won financing the War of 1812.</span></li>
+          <li><span class="plan-day">1967</span><span class="plan-txt"><strong>The “Everything Card”</strong> — First National City's charge card, an early consumer credit revolution.</span></li>
+          <li><span class="plan-day">1976</span><span class="plan-txt"><strong>Renamed Citibank, N.A.</strong> (from First National City Bank); “Citibank” had been the wire-code nickname since the 1860s.</span></li>
+          <li><span class="plan-day">1977</span><span class="plan-txt"><strong>One of the first ATMs</strong> — 24-hour service launched in Queens, pivoting the bank to retail.</span></li>
+          <li><span class="plan-day">1981</span><span class="plan-txt"><strong>Cards move to Sioux Falls, SD</strong> — the interest-rate arbitrage that made Sioux Falls a card capital.</span></li>
+          <li><span class="plan-day">1998</span><span class="plan-txt"><strong>Citicorp + Travelers merger</strong> — record ~$70B deal creates Citigroup; Paula Scher's arc logo arrives with it.</span></li>
+          <li><span class="plan-day">2007</span><span class="plan-txt"><strong>Umbrella sold back to Travelers</strong>; Citi keeps the arc. Financial crisis support follows a year later.</span></li>
+          <li><span class="plan-day">2012</span><span class="plan-txt"><strong>Bicentennial</strong> — 200 years. Citi Bike follows in 2013.</span></li>
+          <li><span class="plan-day">2016</span><span class="plan-txt"><strong>HQ returns to 388 Greenwich Street</strong>, lower Manhattan.</span></li>
+          <li><span class="plan-day">2021</span><span class="plan-txt"><strong>Jane Fraser becomes CEO (Mar 1)</strong> — the first woman to lead a major U.S. bank.</span></li>
+          <li><span class="plan-day">2023</span><span class="plan-txt"><strong>Org simplified to five businesses</strong>, each led by a direct report to the CEO.</span></li>
+          <li><span class="plan-day">2025</span><span class="plan-txt"><strong>$85.2B revenue — decade high</strong>; Fraser named Chair (Oct); CFO transition + USPB reorg announced (Nov); OCC removes 2024 amendment (Dec).</span></li>
+          <li><span class="plan-day">2026</span><span class="plan-txt"><strong>Luchetti takes CFO (Mar)</strong>; FY2025 10-K filed — five segments incl. U.S. Consumer Cards; Russia exit closed (Feb).</span></li>
+        </ol>
+        <p class="src"><a href="https://www.citigroup.com/global/about-us/heritage" target="_blank" rel="noopener">Citi heritage timeline</a> · <a href="https://en.wikipedia.org/wiki/Citibank" target="_blank" rel="noopener">Wikipedia — Citibank</a></p>
+      </div>
+
+      <div class="firm-card firm-wide">
+        <h3>Glossary — the words your stakeholders will use</h3>
+        <div class="gloss-grid">
+          <div class="gloss-item"><strong>IBAN</strong><span>International account number. Mod-97 checksum — pre-validate it client-side and you'll look senior.</span></div>
+          <div class="gloss-item"><strong>SWIFT / BIC</strong><span>Bank identifier codes for cross-border messaging between institutions.</span></div>
+          <div class="gloss-item"><strong>ACH · FedNow</strong><span>U.S. batch payments vs instant payments rails — different latency promises in the UI.</span></div>
+          <div class="gloss-item"><strong>ISO 20022</strong><span>Rich-data payments messaging standard replacing sparse legacy formats (incl. legacy SWIFT MT).</span></div>
+          <div class="gloss-item"><strong>KYC / AML</strong><span>Know-your-customer identity checks + anti-money-laundering screening — onboarding flows must model these states.</span></div>
+          <div class="gloss-item"><strong>OFAC screening</strong><span>Sanctions checks on parties; expect “pending screening”/hold states in payment UIs.</span></div>
+          <div class="gloss-item"><strong>Maker-checker</strong><span>Dual authorization — one person creates a payment, another approves. UI must model the four-eyes lifecycle.</span></div>
+          <div class="gloss-item"><strong>Nostro / vostro</strong><span>Correspondent bank accounts each side of a border; reconciliation views built on them.</span></div>
+          <div class="gloss-item"><strong>T+1</strong><span>Trade settles one business day after execution (U.S. equities since May 2024).</span></div>
+          <div class="gloss-item"><strong>Co-brand card</strong><span>Citi-branded cards partnered with airlines/retailers (e.g., American Airlines, Costco) — a USCC specialty.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOURCES ============ -->
+    <section class="src-sec shell" id="sources" aria-labelledby="srcTitle">
+      <header class="sec-head">
+        <span class="sec-no mono">06</span>
+        <h2 id="srcTitle">Sources &amp; further reading</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+      </header>
+      <div class="src-grid">
+        <div class="firm-card">
+          <h3>Primary sources</h3>
+          <ol class="src-list">
+            <li><a href="https://www.citigroup.com/global/about-us/heritage" target="_blank" rel="noopener">Citi — Heritage &amp; timeline</a> · official milestones, 1812–2026</li>
+            <li><a href="https://www.citigroup.com/global/about-us/global-presence/united-states" target="_blank" rel="noopener">Citi — Global presence: United States</a> · HQ, founding, ATM/renaming history</li>
+            <li><a href="https://www.citigroup.com/global/businesses" target="_blank" rel="noopener">Citi — Businesses</a> · the five core businesses</li>
+            <li><a href="https://www.citigroup.com/global/about-us/leadership/jane-fraser" target="_blank" rel="noopener">Citi — Jane Fraser bio</a> · CEO Mar 2021, Chair Oct 2025</li>
+            <li><a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements/2026/annual-report" target="_blank" rel="noopener">Citi 2025 Annual Report (Form 10-K)</a> · five segments, AI scale, Google Cloud, Transformation status</li>
+            <li><a href="https://www.businesswire.com/news/home/20260114453370/en/Citigroup-Reports-Fourth-Quarter-and-Full-Year-2025-Results" target="_blank" rel="noopener">Citigroup Q4/FY2025 results</a> · Jan 14, 2026 — revenue, capital returns</li>
+            <li><a href="https://www.citigroup.com/global/news/press-release/2025/citi-cfo-transition-plans-changes-united-states-personal-banking-business" target="_blank" rel="noopener">Citi — CFO transition &amp; USPB changes</a> · Nov 20, 2025</li>
+            <li><a href="https://www.citigroup.com/rcs/citigpa/storage/public/investor-day/citi-ID26-financial-overview-presentation.pdf" target="_blank" rel="noopener">Citi 2026 Investor Day — financial overview</a> · transformation %, targets</li>
+            <li><a href="https://www.federalreserve.gov/newsevents/pressreleases/enforcement20240710a.htm" target="_blank" rel="noopener">Federal Reserve — $60.6M penalty</a> · Jul 10, 2024, under the 2020 order</li>
+            <li><a href="https://www.occ.treas.gov/news-issuances/news-releases/2024/nr-occ-2024-76.html" target="_blank" rel="noopener">OCC NR 2024-76 — $75M penalty + amendment</a> · Jul 10, 2024 (amendment terminated Dec 2025, see occ.gov enforcement actions)</li>
+            <li><a href="https://www.nytimes.com/1998/04/07/news/citicorp-and-travelers-plan-to-merge-in-record-70-billion-deal-a-new-no.html" target="_blank" rel="noopener">NYT — Citicorp/Travelers merger</a> · Apr 7, 1998, record $70B deal</li>
+            <li><a href="https://www.pentagram.com/about/paula-scher" target="_blank" rel="noopener">Pentagram — Paula Scher</a> · Citi identity, 1998</li>
+            <li><a href="https://jobs.citi.com" target="_blank" rel="noopener">jobs.citi.com</a> · live tech-hub locations &amp; role levels (AVP/VP/SVP ladder)</li>
+          </ol>
+        </div>
+        <aside class="firm-card src-aside">
+          <h3>How to use these</h3>
+          <ul class="firm-list">
+            <li><strong>Numbers move.</strong> Re-verify the week of your interview: the latest 10-K and the newest quarterly press release (both linked here) are the only two links you need.</li>
+            <li><strong>Quote with an “as of.”</strong> “~$85B revenue, as of FY2025” — never a naked number.</li>
+            <li><strong>Use their phrasing.</strong> “More than 180 countries and jurisdictions” is their boilerplate — don't improvise “200 countries”.</li>
+            <li><strong>One-line status check</strong> before you walk in: today's stock, last quarter's revenue, any news in the past 30 days.</li>
+            <li><strong>Regulation is current events here</strong> — check the OCC/Fed pages the same week.</li>
+          </ul>
+          <p class="src">Retrieved Sep 14, 2026 · unofficial study aid · not affiliated with Citigroup</p>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="foot shell">
+      <div class="foot-rule" aria-hidden="true"></div>
+      <p class="foot-brand">ARC<em>/</em>PREP</p>
+      <p class="foot-note">
+        Built keyboard-first · localStorage only — nothing leaves this browser ·
+        This site itself demos the craft it preaches: skip link, live regions, focus states, <code>prefers-reduced-motion</code>, system theme respect.
+      </p>
+      <p class="foot-legal mono">Unofficial study aid. Not affiliated with Citigroup. The arc is a study motif, not the mark.</p>
+    </footer>
+
+  </main>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
