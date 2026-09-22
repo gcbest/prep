@@ -15,6 +15,7 @@
     unknown: {},
     checks: {},
     stars: {},
+    hidden: {},
     track: "js",
     reviewOnly: false,
     shuffled: false,
@@ -29,6 +30,71 @@
   const save = () => {
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* private mode */ }
   };
+
+  /* ---------------- optional GitHub Gist sync ----------------
+     GitHub Pages cannot safely hold a server-side token. The user supplies
+     a fine-grained token with Gists permission; it is kept only in this
+     browser, while the private Gist contains study state only. */
+  const GIST_CONFIG = "arcprep-gist-v1";
+  const gistConfig = (() => {
+    try { return JSON.parse(localStorage.getItem(GIST_CONFIG) || "{}"); } catch { return {}; }
+  })();
+  const gistToken = $("#gistToken");
+  const gistId = $("#gistId");
+  const syncStatus = $("#syncStatus");
+  const setSyncStatus = (text) => { if (syncStatus) syncStatus.textContent = text; };
+  if (gistToken) gistToken.value = gistConfig.token || "";
+  if (gistId) gistId.value = gistConfig.id || "";
+
+  function rememberGistConfig() {
+    const id = (gistId.value || "").trim().replace(/^.*\\/g, "");
+    gistId.value = id;
+    localStorage.setItem(GIST_CONFIG, JSON.stringify({ token: gistToken.value.trim(), id }));
+    return { token: gistToken.value.trim(), id };
+  }
+
+  async function gistRequest(method, id, token, body) {
+    const response = await fetch(`https://api.github.com/gists${id ? `/${id}` : ""}`, {
+      method,
+      headers: { Accept: "application/vnd.github+json", Authorization: `Bearer ${token}`,
+        ...(body ? { "Content-Type": "application/json" } : {}) },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+    return response.json();
+  }
+
+  async function pushToGist() {
+    const { token, id } = rememberGistConfig();
+    if (!token) { setSyncStatus("Enter a GitHub token first"); gistToken.focus(); return; }
+    setSyncStatus("Saving…");
+    try {
+      const body = { description: "ARC/PREP private study progress", public: false,
+        files: { "arcprep-state.json": { content: JSON.stringify(state, null, 2) } } };
+      const result = await gistRequest(id ? "PATCH" : "POST", id, token, body);
+      gistId.value = result.id;
+      localStorage.setItem(GIST_CONFIG, JSON.stringify({ token, id: result.id }));
+      setSyncStatus(`Saved ${new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`);
+    } catch (error) { setSyncStatus(`Save failed: ${error.message}`); }
+  }
+
+  async function pullFromGist() {
+    const { token, id } = rememberGistConfig();
+    if (!token || !id) { setSyncStatus("Enter both token and Gist ID"); return; }
+    if (!confirm("Replace this device's local progress with the Gist copy?")) return;
+    setSyncStatus("Loading…");
+    try {
+      const result = await gistRequest("GET", id, token);
+      const file = result.files?.["arcprep-state.json"];
+      if (!file) throw new Error("arcprep-state.json not found");
+      const remote = JSON.parse(file.content);
+      localStorage.setItem(KEY, JSON.stringify({ ...blank(), ...remote }));
+      setSyncStatus("Loaded — refreshing");
+      location.reload();
+    } catch (error) { setSyncStatus(`Load failed: ${error.message}`); }
+  }
+  $("#syncPush")?.addEventListener("click", pushToGist);
+  $("#syncPull")?.addEventListener("click", pullFromGist);
 
   /* ---------------- theme ---------------- */
   const themeToggle = $("#themeToggle");
@@ -397,9 +463,57 @@
     });
   });
 
+  /* ---------------- section visibility ---------------- */
+  if (!state.hidden || typeof state.hidden !== "object") state.hidden = {};
+  const HIDEABLE = ["star", "reference", "plan", "firm", "sources"];
+
+  function applyHidden() {
+    HIDEABLE.forEach((id) => {
+      const sec = document.getElementById(id);
+      const isHidden = Boolean(state.hidden[id]);
+      if (sec) sec.classList.toggle("is-hidden", isHidden);
+      document.querySelectorAll(`[data-section-toggle="${id}"]`).forEach((btn) => {
+        btn.setAttribute("aria-pressed", String(!isHidden));
+        btn.textContent = btn.textContent.replace(/^Show |^Hide /, "");
+        if (isHidden) btn.textContent = `Show ${btn.textContent}`;
+      });
+    });
+  }
+
+  function setHidden(id, hide) {
+    if (!HIDEABLE.includes(id)) return;
+    if (hide) state.hidden[id] = true;
+    else delete state.hidden[id];
+    save();
+    applyHidden();
+  }
+
+  document.querySelectorAll("[data-hide-section]").forEach((btn) => {
+    btn.addEventListener("click", () => setHidden(btn.dataset.hideSection, true));
+  });
+  document.querySelectorAll("[data-section-toggle]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.sectionToggle;
+      setHidden(id, !state.hidden[id]);
+    });
+  });
+  $("#showAllSections")?.addEventListener("click", () => {
+    state.hidden = {};
+    save();
+    applyHidden();
+  });
+  // Navigating to a hidden section unhides it first
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", () => {
+      const id = a.getAttribute("href").slice(1);
+      if (state.hidden[id]) setHidden(id, false);
+    });
+  });
+
   /* ---------------- boot ---------------- */
   applyTheme(document.documentElement.dataset.theme || "dark");
   $("#reviewToggle").setAttribute("aria-pressed", String(state.reviewOnly));
+  applyHidden();
   renderTabs();
   renderDeck();
   updateHero();

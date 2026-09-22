@@ -135,30 +135,26 @@
       <p class="visually-hidden" role="status" id="liveStatus"></p>
     </section>
 
-    <!-- ============ PLAN ============ -->
-    <section class="plan-sec shell" id="plan" aria-labelledby="planTitle">
-      <header class="sec-head">
-        <span class="sec-no mono">02</span>
-        <h2 id="planTitle">The 7-day countdown</h2>
-        <span class="sec-rule" aria-hidden="true"></span>
-      </header>
-      <div class="plan-grid">
-        <div class="plan-list">
-          <ol id="planList"></ol>
-        </div>
-        <div class="check-wrap">
-          <div class="check-card" id="checkNight"><h3>Night before</h3></div>
-          <div class="check-card" id="checkDay"><h3>Day of</h3></div>
-        </div>
+    <!-- ============ SECTIONS VISIBILITY ============ -->
+    <nav class="sections-bar shell" aria-label="Show or hide page sections">
+      <span class="sections-label mono">Sections</span>
+      <div class="sections-chips">
+        <button class="chip" data-section-toggle="star" type="button" aria-pressed="true">STAR stories</button>
+        <button class="chip" data-section-toggle="reference" type="button" aria-pressed="true">Reference</button>
+        <button class="chip" data-section-toggle="plan" type="button" aria-pressed="true">Countdown</button>
+        <button class="chip" data-section-toggle="firm" type="button" aria-pressed="true">Firm</button>
+        <button class="chip" data-section-toggle="sources" type="button" aria-pressed="true">Sources</button>
+        <button class="chip" id="showAllSections" type="button">Show all</button>
       </div>
-    </section>
+    </nav>
 
     <!-- ============ STAR ============ -->
-    <section class="star-sec shell" aria-labelledby="starTitle">
+    <section class="star-sec shell" id="star" aria-labelledby="starTitle" data-hideable>
       <header class="sec-head">
-        <span class="sec-no mono">03</span>
+        <span class="sec-no mono">02</span>
         <h2 id="starTitle">Your STAR stories</h2>
         <span class="sec-rule" aria-hidden="true"></span>
+        <button class="sec-hide" data-hide-section="star" type="button" aria-label="Hide STAR stories section">Hide</button>
       </header>
       <p class="star-lede">Behavioral rounds are won on prepared specifics, not charm. Draft three stories below — they autosave in this browser.</p>
       <div class="star-grid">
@@ -181,11 +177,12 @@
     </section>
 
     <!-- ============ REFERENCE ============ -->
-    <section class="ref-sec shell" aria-labelledby="refTitle">
+    <section class="ref-sec shell" id="reference" aria-labelledby="refTitle" data-hideable>
       <header class="sec-head">
-        <span class="sec-no mono">04</span>
+        <span class="sec-no mono">03</span>
         <h2 id="refTitle">Last-hour reference</h2>
         <span class="sec-rule" aria-hidden="true"></span>
+        <button class="sec-hide" data-hide-section="reference" type="button" aria-label="Hide last-hour reference section">Hide</button>
       </header>
       <div class="ref-grid">
         <div class="ref-card">
@@ -248,13 +245,33 @@
       </div>
     </section>
 
+    <!-- ============ PLAN ============ -->
+    <section class="plan-sec shell" id="plan" aria-labelledby="planTitle" data-hideable>
+      <header class="sec-head">
+        <span class="sec-no mono">04</span>
+        <h2 id="planTitle">The 7-day countdown</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+        <button class="sec-hide" data-hide-section="plan" type="button" aria-label="Hide 7-day countdown section">Hide</button>
+      </header>
+      <div class="plan-grid">
+        <div class="plan-list">
+          <ol id="planList"></ol>
+        </div>
+        <div class="check-wrap">
+          <div class="check-card" id="checkNight"><h3>Night before</h3></div>
+          <div class="check-card" id="checkDay"><h3>Day of</h3></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ KNOW THE FIRM ============ -->
-    <section class="firm-sec shell" id="firm" aria-labelledby="firmTitle">
+    <section class="firm-sec shell" id="firm" aria-labelledby="firmTitle" data-hideable>
       <header class="sec-head">
         <span class="sec-no mono">05</span>
         <h2 id="firmTitle">Know the firm</h2>
         <span class="sec-rule" aria-hidden="true"></span>
         <span class="sec-note mono">verified · sep 2026</span>
+        <button class="sec-hide" data-hide-section="firm" type="button" aria-label="Hide know the firm section">Hide</button>
       </header>
 
       <div class="firm-grid">
@@ -367,11 +384,12 @@
     </section>
 
     <!-- ============ SOURCES ============ -->
-    <section class="src-sec shell" id="sources" aria-labelledby="srcTitle">
+    <section class="src-sec shell" id="sources" aria-labelledby="srcTitle" data-hideable>
       <header class="sec-head">
         <span class="sec-no mono">06</span>
         <h2 id="srcTitle">Sources &amp; further reading</h2>
         <span class="sec-rule" aria-hidden="true"></span>
+        <button class="sec-hide" data-hide-section="sources" type="button" aria-label="Hide sources section">Hide</button>
       </header>
       <div class="src-grid">
         <div class="firm-card">
@@ -409,8 +427,23 @@
     <footer class="foot shell">
       <div class="foot-rule" aria-hidden="true"></div>
       <p class="foot-brand">ARC<em>/</em>PREP</p>
+      <div class="sync-box" aria-labelledby="syncTitle">
+        <div>
+          <p class="sync-title" id="syncTitle">Sync your prep between devices</p>
+          <p class="sync-help">Use a private GitHub Gist as your encrypted-in-transit backup. A GitHub token with <code>gist</code> permission is required; it stays in this browser and is never written to the Gist.</p>
+        </div>
+        <div class="sync-fields">
+          <label>GitHub token <input id="gistToken" type="password" autocomplete="off" placeholder="github_pat_…" /></label>
+          <label>Gist ID <input id="gistId" type="text" autocomplete="off" placeholder="leave blank to create one" /></label>
+        </div>
+        <div class="sync-actions">
+          <button class="chip" id="syncPull" type="button">Load from Gist</button>
+          <button class="chip" id="syncPush" type="button">Save to Gist</button>
+          <span class="sync-status" id="syncStatus" role="status">Not connected</span>
+        </div>
+      </div>
       <p class="foot-note">
-        Built keyboard-first · localStorage only — nothing leaves this browser ·
+        Built keyboard-first · saves locally by default; optional private Gist sync ·
         This site itself demos the craft it preaches: skip link, live regions, focus states, <code>prefers-reduced-motion</code>, system theme respect.
       </p>
       <p class="foot-legal mono">Unofficial study aid. Not affiliated with Citigroup. The arc is a study motif, not the mark.</p>
