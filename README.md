@@ -1,6 +1,13 @@
 # ARC/PREP
 
-A no-build Citi UI engineering interview study deck.
+A no-build Citi interview study deck for the **Lead UI Engineer / Senior UI Developer**
+role in Citi's **Enterprise Risk Technology (ERT)** — Rutherford, NJ, Zoom panel.
+
+The drill deck is tuned to the job description: **Angular 16+**, JavaScript/TypeScript,
+HTML5/CSS/Bootstrap, **Jasmine & Karma** and Cypress testing, UI system design with
+a11y/performance, DevOps (Git, JIRA, Agile/Scrum, TeamCity/uDeploy/Jenkins, Micro
+Frontends, Docker), MongoDB/NoSQL, and the systems-analysis + leadership material a
+senior hire is probed on.
 
 ## Run locally
 

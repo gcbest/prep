@@ -16,7 +16,7 @@
     checks: {},
     stars: {},
     hidden: {},
-    track: "js",
+    track: "ng",
     reviewOnly: false,
     shuffled: false,
   });
@@ -148,7 +148,7 @@
   });
 
   /* ---------------- deck engine ---------------- */
-  let track = TRACKS.some((t) => t.id === state.track) ? state.track : "js";
+  let track = TRACKS.some((t) => t.id === state.track) ? state.track : TRACKS[0].id;
   let queue = [];
   let index = 0;
   let revealed = false;
@@ -465,7 +465,7 @@
 
   /* ---------------- section visibility ---------------- */
   if (!state.hidden || typeof state.hidden !== "object") state.hidden = {};
-  const HIDEABLE = ["star", "reference", "plan", "firm", "sources"];
+  const HIDEABLE = ["role", "star", "reference", "plan", "firm", "sources"];
 
   function applyHidden() {
     HIDEABLE.forEach((id) => {
