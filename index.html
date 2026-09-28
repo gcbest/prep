@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ARC/PREP — Citi ERT Lead UI Engineer (Angular) Interview Brief</title>
-  <meta name="description" content="Interview operations brief for the Lead UI Engineer / Senior UI Developer role in Citi's Enterprise Risk Technology (Rutherford, NJ — Zoom panel): 64 flashcards across Angular 16+, JavaScript/TypeScript, HTML5/CSS/Bootstrap, Jasmine & Karma & Cypress testing, UI system design, DevOps/Micro Frontends/Docker, and leadership behavioral rounds, plus sourced company intel on Citi itself." />
+  <meta name="description" content="Interview operations brief for the Lead UI Engineer / Senior UI Developer role in Citi's Enterprise Risk Technology (Rutherford, NJ — Zoom panel): 72 flashcards across Angular 16+, JavaScript/TypeScript, HTML5/CSS/Bootstrap, Jasmine & Karma & Cypress testing, UI system design, DevOps/Micro Frontends/Docker, risk domain (stress testing, BCBS 239, limits), and leadership behavioral rounds, plus sourced company intel on Citi itself." />
   <meta name="theme-color" content="#0a1420" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b1526'/%3E%3Cpath d='M4 24 A 14 14 0 0 1 28 24' fill='none' stroke='%230071c5' stroke-width='4'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -56,16 +56,15 @@
           </h1>
           <p class="lede">
             A drill deck for Citi's <strong>Lead UI Engineer</strong> panel in Enterprise Risk
-            Technology — <strong>Angular 16+</strong>, JavaScript/TypeScript, HTML5/CSS/Bootstrap,
-            <strong>Jasmine &amp; Karma</strong> and Cypress testing, micro frontends, Docker, Agile/DevOps,
-            and the systems-analysis and leadership questions a senior hire is judged on.
+            Technology — <strong>Angular 16+</strong>, testing with Jasmine/Karma/Cypress, micro frontends
+            &amp; Docker, the <strong>risk domain</strong> your users live in, and the leadership
+            questions a senior hire is judged on.
             Mark what you know. Own the rest.
           </p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#deck">Start the deck</a>
-            <a class="btn" href="#role">The role</a>
-            <a class="btn" href="#firm">Know the firm</a>
-            <a class="btn" href="#plan">Day-of plan</a>
+            <a class="btn" href="#role">The role &amp; team</a>
+            <a class="btn" href="#plan">Countdown</a>
           </div>
         </div>
         <div class="hero-arcwrap">
@@ -82,11 +81,48 @@
       </div>
       <div class="statstrip" role="list" aria-label="Deck statistics">
         <div role="listitem"><span class="stat-num" id="statCards">—</span><span class="stat-lab">cards</span></div>
-        <div role="listitem"><span class="stat-num">8</span><span class="stat-lab">tracks</span></div>
+        <div role="listitem"><span class="stat-num">9</span><span class="stat-lab">tracks</span></div>
         <div role="listitem"><span class="stat-num" id="statKnown">0</span><span class="stat-lab">known</span></div>
         <div role="listitem"><span class="stat-num" id="statLeft">—</span><span class="stat-lab">to review</span></div>
       </div>
+      <ol class="steps" aria-label="How to use this site">
+        <li class="step">
+          <span class="step-no mono">01</span>
+          <div>
+            <strong>Drill the deck</strong>
+            <p>Start with the Angular tracks (01–02), then Risk Domain (08). Mark <em>Know it</em> or <em>Again</em> honestly — the arc tracks your gaps.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-no mono">02</span>
+          <div>
+            <strong>Own your stories</strong>
+            <p>Draft the three STAR slots now: a production fire, a disagreement, a team you leveled up. Rehearse them out loud.</p>
+          </div>
+        </li>
+        <li class="step">
+          <span class="step-no mono">03</span>
+          <div>
+            <strong>Cram in order</strong>
+            <p>Role brief &amp; Citi intel the night before. Quick ref the hour before. Zoom setup checked the day before.</p>
+          </div>
+        </li>
+      </ol>
     </section>
+
+    <!-- ============ QUICK NAV ============ -->
+    <nav class="qnav" id="qnav" aria-label="Jump to a section">
+      <div class="qnav-inner shell">
+        <span class="qnav-label mono">Jump to</span>
+        <a href="#deck">Drill deck</a>
+        <a href="#role">Role &amp; team</a>
+        <a href="#plan">Countdown</a>
+        <a href="#star">STAR</a>
+        <a href="#reference">Quick ref</a>
+        <a href="#firm">Citi intel</a>
+        <a href="#sources">Sources</a>
+      </div>
+    </nav>
 
     <!-- ============ DECK ============ -->
     <section class="deck-sec shell" id="deck" aria-labelledby="deckTitle">
@@ -137,28 +173,13 @@
       <p class="visually-hidden" role="status" id="liveStatus"></p>
     </section>
 
-    <!-- ============ SECTIONS VISIBILITY ============ -->
-    <nav class="sections-bar shell" aria-label="Show or hide page sections">
-      <span class="sections-label mono">Sections</span>
-      <div class="sections-chips">
-        <button class="chip" data-section-toggle="role" type="button" aria-pressed="true">Role brief</button>
-        <button class="chip" data-section-toggle="star" type="button" aria-pressed="true">STAR stories</button>
-        <button class="chip" data-section-toggle="reference" type="button" aria-pressed="true">Reference</button>
-        <button class="chip" data-section-toggle="plan" type="button" aria-pressed="true">Countdown</button>
-        <button class="chip" data-section-toggle="firm" type="button" aria-pressed="true">Firm</button>
-        <button class="chip" data-section-toggle="sources" type="button" aria-pressed="true">Sources</button>
-        <button class="chip" id="showAllSections" type="button">Show all</button>
-      </div>
-    </nav>
-
-    <!-- ============ ROLE BRIEF ============ -->
-    <section class="ref-sec shell" id="role" aria-labelledby="roleTitle" data-hideable>
+    <!-- ============ ROLE & TEAM ============ -->
+    <section class="ref-sec shell" id="role" aria-labelledby="roleTitle">
       <header class="sec-head">
         <span class="sec-no mono">02</span>
-        <h2 id="roleTitle">The role, decoded</h2>
+        <h2 id="roleTitle">The role &amp; the team</h2>
         <span class="sec-rule" aria-hidden="true"></span>
-        <span class="sec-note mono">from the job description</span>
-        <button class="sec-hide" data-hide-section="role" type="button" aria-label="Hide the role brief section">Hide</button>
+        <span class="sec-note mono">job description + team research</span>
       </header>
       <div class="ref-grid">
         <div class="ref-card">
@@ -174,6 +195,17 @@
           <p class="ref-foot">ERT's charter: “best-in-class products and services to our global risk clients while solving our Risk Managers’ biggest pain points.”</p>
         </div>
         <div class="ref-card">
+          <h3>Inside ERT — what the team does</h3>
+          <ul>
+            <li>ERT is the tech arm within <strong>Functions Technology</strong>, serving Citi's risk &amp; control functions: <strong>ERM, ICRM, Retail Credit Risk, Operational Risk, Model Risk</strong></li>
+            <li>Its “global risk clients” are <strong>risk managers worldwide</strong> — internal product users, not consumers</li>
+            <li><strong>Rutherford, NJ</strong> is a risk-tech hub: Stress Testing Platform, Credit Risk Technology, ERT data roles</li>
+            <li>Risk org led by CRO <strong>Zdenek Turek</strong> (since Feb 2021): all risks “measured, reviewed and monitored on an ongoing basis”</li>
+            <li>Expect to build: risk dashboards, limit-monitoring &amp; breach workflows, stress-test scenario tools, data-quality/lineage views, reporting workbenches</li>
+          </ul>
+          <p class="ref-foot">Drill cards <strong>08 · Risk Domain</strong> for this vocabulary.</p>
+        </div>
+        <div class="ref-card">
           <h3>What you'll do</h3>
           <ol>
             <li>Design and implement scalable solutions in <strong>Angular</strong></li>
@@ -183,40 +215,6 @@
             <li>Improve architecture, process, and suggest new technologies</li>
             <li>Strictly follow Citi's engineering standards across all modules</li>
           </ol>
-        </div>
-        <div class="ref-card">
-          <h3>What “senior” adds</h3>
-          <ul>
-            <li><strong>Own success</strong> — take responsibility for delivery of the solution</li>
-            <li>Mentor developers; organize design, code &amp; technical-document reviews</li>
-            <li>Analyze and collaborate on technical solutions; land the optimum one</li>
-            <li>Define operating standards and processes; operate with limited supervision</li>
-            <li>Act as technical advisor or coach to junior members</li>
-            <li>Adjust priorities quickly as circumstances dictate</li>
-          </ul>
-        </div>
-        <div class="ref-card">
-          <h3>Must-have → where this deck covers it</h3>
-          <table>
-            <tr><td>Angular 16+ enterprise apps</td><td>tracks 01–02</td></tr>
-            <tr><td>JS · HTML5 · CSS · Bootstrap · Ajax</td><td>tracks 03–04</td></tr>
-            <tr><td>Jasmine &amp; Karma</td><td>track 05</td></tr>
-            <tr><td>Git · JIRA · Agile/Scrum</td><td>track 07</td></tr>
-            <tr><td>Web portals &amp; large-scale apps</td><td>track 06</td></tr>
-            <tr><td>Systems analysis &amp; design</td><td>tracks 06, 08</td></tr>
-          </table>
-          <p class="ref-foot">Added advantage — TeamCity &amp; uDeploy/Jenkins, MongoDB/NoSQL, Cypress: tracks 05 &amp; 07.</p>
-        </div>
-        <div class="ref-card">
-          <h3>How they'll probe</h3>
-          <ul>
-            <li>Relevant experience in apps development or systems analysis</li>
-            <li>Hands-on experience as a technical team leader</li>
-            <li>Extensive system analysis &amp; design — sequence diagrams, class diagrams</li>
-            <li>High- and low-level design contributions</li>
-            <li>Strong systems fundamentals, unit testing, SDLC activities</li>
-            <li>Clear, concise written &amp; verbal communication; Bachelor's or equivalent</li>
-          </ul>
         </div>
         <div class="ref-card">
           <h3>Zoom panel logistics</h3>
@@ -229,15 +227,87 @@
           </ul>
         </div>
       </div>
+
+      <details class="fold fold-sub">
+        <summary>
+          The JD line by line — senior expectations, skills map, how they'll probe
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
+        <div class="ref-grid">
+          <div class="ref-card">
+            <h3>What “senior” adds</h3>
+            <ul>
+              <li><strong>Own success</strong> — take responsibility for delivery of the solution</li>
+              <li>Mentor developers; organize design, code &amp; technical-document reviews</li>
+              <li>Analyze and collaborate on technical solutions; land the optimum one</li>
+              <li>Define operating standards and processes; operate with limited supervision</li>
+              <li>Act as technical advisor or coach to junior members</li>
+              <li>Adjust priorities quickly as circumstances dictate</li>
+            </ul>
+          </div>
+          <div class="ref-card">
+            <h3>Must-have → where this deck covers it</h3>
+            <table>
+              <tr><td>Angular 16+ enterprise apps</td><td>tracks 01–02</td></tr>
+              <tr><td>JS · HTML5 · CSS · Bootstrap · Ajax</td><td>tracks 03–04</td></tr>
+              <tr><td>Jasmine &amp; Karma</td><td>track 05</td></tr>
+              <tr><td>Git · JIRA · Agile/Scrum</td><td>track 07</td></tr>
+              <tr><td>Web portals &amp; large-scale apps</td><td>track 06</td></tr>
+              <tr><td>Systems analysis &amp; design</td><td>tracks 06, 09</td></tr>
+            </table>
+            <p class="ref-foot">Added advantage — TeamCity &amp; uDeploy/Jenkins, MongoDB/NoSQL, Cypress: tracks 05 &amp; 07.</p>
+          </div>
+          <div class="ref-card">
+            <h3>How they'll probe</h3>
+            <ul>
+              <li>Relevant experience in apps development or systems analysis</li>
+              <li>Hands-on experience as a technical team leader</li>
+              <li>Extensive system analysis &amp; design — sequence diagrams, class diagrams</li>
+              <li>High- and low-level design contributions</li>
+              <li>Strong systems fundamentals, unit testing, SDLC activities</li>
+              <li>Clear, concise written &amp; verbal communication; Bachelor's or equivalent</li>
+            </ul>
+          </div>
+          <div class="ref-card">
+            <h3>Risk vocabulary — quick pass</h3>
+            <table>
+              <tr><td>ERT · ERM · ICRM</td><td>your team; enterprise risk; compliance risk</td></tr>
+              <tr><td>CCAR / DFAST</td><td>annual Fed stress test (scenarios → capital)</td></tr>
+              <tr><td>BCBS 239</td><td>risk data aggregation &amp; reporting rules</td></tr>
+              <tr><td>VaR / ES</td><td>market-risk loss measures</td></tr>
+              <tr><td>PD · LGD · EAD · RWA</td><td>credit-risk math</td></tr>
+              <tr><td>PPNR</td><td>pre-provision net revenue in stress projections</td></tr>
+              <tr><td>Maker-checker</td><td>dual control on money- and risk-moving actions</td></tr>
+            </table>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ============ PLAN ============ -->
+    <section class="plan-sec shell" id="plan" aria-labelledby="planTitle">
+      <header class="sec-head">
+        <span class="sec-no mono">03</span>
+        <h2 id="planTitle">The 7-day countdown</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+      </header>
+      <div class="plan-grid">
+        <div class="plan-list">
+          <ol id="planList"></ol>
+        </div>
+        <div class="check-wrap">
+          <div class="check-card" id="checkNight"><h3>Night before</h3></div>
+          <div class="check-card" id="checkDay"><h3>Day of</h3></div>
+        </div>
+      </div>
     </section>
 
     <!-- ============ STAR ============ -->
-    <section class="star-sec shell" id="star" aria-labelledby="starTitle" data-hideable>
+    <section class="star-sec shell" id="star" aria-labelledby="starTitle">
       <header class="sec-head">
-        <span class="sec-no mono">03</span>
+        <span class="sec-no mono">04</span>
         <h2 id="starTitle">Your STAR stories</h2>
         <span class="sec-rule" aria-hidden="true"></span>
-        <button class="sec-hide" data-hide-section="star" type="button" aria-label="Hide STAR stories section">Hide</button>
       </header>
       <p class="star-lede">Behavioral rounds are won on prepared specifics, not charm. Draft three stories below — they autosave in this browser.</p>
       <div class="star-grid">
@@ -259,14 +329,15 @@
       </div>
     </section>
 
-    <!-- ============ REFERENCE ============ -->
-    <section class="ref-sec shell" id="reference" aria-labelledby="refTitle" data-hideable>
-      <header class="sec-head">
-        <span class="sec-no mono">04</span>
-        <h2 id="refTitle">Last-hour reference</h2>
+    <!-- ============ REFERENCE (folded) ============ -->
+    <details class="fold ref-sec shell" id="reference">
+      <summary class="sec-head">
+        <span class="sec-no mono">05</span>
+        <h2>Last-hour reference</h2>
         <span class="sec-rule" aria-hidden="true"></span>
-        <button class="sec-hide" data-hide-section="reference" type="button" aria-label="Hide last-hour reference section">Hide</button>
-      </header>
+        <span class="sec-note mono">8 cheat sheets · opens on tap</span>
+        <span class="fold-ico" aria-hidden="true"></span>
+      </summary>
       <div class="ref-grid">
         <div class="ref-card">
           <h3>Angular change detection</h3>
@@ -346,35 +417,15 @@
           </ul>
         </div>
       </div>
-    </section>
-
-    <!-- ============ PLAN ============ -->
-    <section class="plan-sec shell" id="plan" aria-labelledby="planTitle" data-hideable>
-      <header class="sec-head">
-        <span class="sec-no mono">05</span>
-        <h2 id="planTitle">The 7-day countdown</h2>
-        <span class="sec-rule" aria-hidden="true"></span>
-        <button class="sec-hide" data-hide-section="plan" type="button" aria-label="Hide 7-day countdown section">Hide</button>
-      </header>
-      <div class="plan-grid">
-        <div class="plan-list">
-          <ol id="planList"></ol>
-        </div>
-        <div class="check-wrap">
-          <div class="check-card" id="checkNight"><h3>Night before</h3></div>
-          <div class="check-card" id="checkDay"><h3>Day of</h3></div>
-        </div>
-      </div>
-    </section>
+    </details>
 
     <!-- ============ KNOW THE FIRM ============ -->
-    <section class="firm-sec shell" id="firm" aria-labelledby="firmTitle" data-hideable>
+    <section class="firm-sec shell" id="firm" aria-labelledby="firmTitle">
       <header class="sec-head">
         <span class="sec-no mono">06</span>
         <h2 id="firmTitle">Know the firm</h2>
         <span class="sec-rule" aria-hidden="true"></span>
         <span class="sec-note mono">verified · sep 2026</span>
-        <button class="sec-hide" data-hide-section="firm" type="button" aria-label="Hide know the firm section">Hide</button>
       </header>
 
       <div class="firm-grid">
@@ -385,44 +436,13 @@
             <div><dt>Headquarters</dt><dd>388 Greenwich Street, New York City</dd></div>
             <div><dt>Listed</dt><dd>NYSE: C</dd></div>
             <div><dt>Chair &amp; CEO</dt><dd>Jane Fraser, DBE — CEO since Mar 2021, Chair since Oct 2025</dd></div>
-            <div><dt>CFO</dt><dd>Gonzalo Luchetti — since Mar 2026 (Mark Mason → Exec Vice Chair)</dd></div>
+            <div><dt>Chief Risk Officer</dt><dd>Zdenek Turek — since Feb 2021; leads the global Risk Management organization</dd></div>
             <div><dt>People</dt><dd>~226,000 employees, in more than 90 countries</dd></div>
             <div><dt>Reach</dt><dd>Business in 180+ countries &amp; jurisdictions; on-the-ground presence in 90+ markets; 200M+ customer accounts</dd></div>
             <div><dt>Standing</dt><dd>Third-largest U.S. bank by assets</dd></div>
             <div><dt>FY2025</dt><dd>$85.2B revenue — highest in over a decade · $17.6B returned to shareholders</dd></div>
           </dl>
-          <p class="src"><a href="https://www.citigroup.com/global/about-us/heritage" target="_blank" rel="noopener">Citi Heritage</a> · <a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements" target="_blank" rel="noopener">2025 Annual Report</a> · <a href="https://www.wsj.com/finance/banking/citigroup-plans-to-reorganize-u-s-personal-banking-business-names-next-cfo-95d175b9" target="_blank" rel="noopener">WSJ</a></p>
-        </div>
-
-        <div class="firm-card">
-          <h3>The five core businesses</h3>
-          <div class="biz-row"><span class="biz-name">Services</span><span>Treasury &amp; Trade Solutions + Securities Services — payments, cash management, trade, custody. The cross-border core; record revenues 2024 and 2025.</span></div>
-          <div class="biz-row"><span class="biz-name">Markets</span><span>Rates, FX, prime services; revenue +11% in 2025 with strength in fixed income and growing equities scale.</span></div>
-          <div class="biz-row"><span class="biz-name">Banking</span><span>Investment, corporate &amp; commercial banking under Vis Raghavan — record 2025 (+32%), best M&A revenue year in Citi's history.</span></div>
-          <div class="biz-row"><span class="biz-name">Wealth</span><span>Private bank + Citigold, led by Andy Sieg; retail banking and U.S. Citigold were folded in (Nov 2025).</span></div>
-          <div class="biz-row"><span class="biz-name">U.S. Consumer Cards</span><span>Standalone segment since Nov 2025, led by Pam Habner — Citi-branded cards and major co-brand partners.</span></div>
-          <p class="src"><a href="https://www.citigroup.com/global/businesses" target="_blank" rel="noopener">citi — businesses</a> · <a href="https://www.citigroup.com/global/news/press-release/2025/citi-cfo-transition-plans-changes-united-states-personal-banking-business" target="_blank" rel="noopener">Nov 2025 reorg release</a></p>
-        </div>
-
-        <div class="firm-card">
-          <h3>Vision &amp; priorities</h3>
-          <blockquote>“The preeminent banking partner for institutions with cross-border needs, a global leader in wealth management, a valued personal bank in its home market.”</blockquote>
-          <p class="firm-small">Two firm priorities: <strong>improving business performance</strong> and <strong>executing the Transformation</strong>. Simplification continues: exits of most international consumer franchises — Banamex separated (Dec 2024), 25% stake sale agreed, IPO planned; Poland consumer exit; Russia fully exited (Feb 2026). 2026 Investor Day laid out the return targets.</p>
-          <p class="src"><a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements/2026/annual-report/letter-to-shareholders" target="_blank" rel="noopener">2025 Letter to Shareholders</a></p>
-        </div>
-
-        <div class="firm-card">
-          <h3>Tech at Citi</h3>
-          <ul class="firm-list">
-            <li><strong>$9.1B</strong> annual technology &amp; communications spend (FY2024)</li>
-            <li><strong>Google Cloud</strong> strategic multiyear alliance — infra modernization + firmwide AI</li>
-            <li><strong>182,000+</strong> employees using proprietary AI tools; AI coding tools ≈ <strong>100,000 hours/week</strong> of developer capacity</li>
-            <li><strong>Tim Ryan</strong> — Head of Technology &amp; Business Enablement</li>
-            <li><strong>Enterprise Risk Technology (ERT)</strong> — the aligned business-tech org serving global risk clients; <em>this role sits inside it (Rutherford, NJ)</em></li>
-            <li>Platforms to name: <strong>CitiDirect</strong> (institutional), <strong>Citi Mobile app</strong>, <strong>Citigold</strong>, <strong>Citi Token Services</strong> (digital assets), <strong>Citi Travel</strong> w/ Booking.com</li>
-            <li>Tech hubs: New York · Tampa · Irving · Jacksonville · Sioux Falls · <strong>Rutherford, NJ</strong> · London · Belfast · Dublin · Warsaw · Budapest · Mumbai · Pune · Chennai · Manila · Mississauga · Singapore</li>
-          </ul>
-          <p class="src"><a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements/2026/annual-report" target="_blank" rel="noopener">2025 10-K</a> · <a href="https://jobs.citi.com" target="_blank" rel="noopener">jobs.citi.com</a></p>
+          <p class="src"><a href="https://www.citigroup.com/global/about-us/heritage" target="_blank" rel="noopener">Citi Heritage</a> · <a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements" target="_blank" rel="noopener">2025 Annual Report</a> · <a href="https://www.citigroup.com/global/about-us/leadership/zdenek-turek" target="_blank" rel="noopener">CRO bio</a></p>
         </div>
 
         <div class="firm-card">
@@ -432,69 +452,110 @@
             <li><strong>Oct 2020</strong> — OCC consent order ($400M CMP) + Fed cease &amp; desist over data governance, risk management, internal controls</li>
             <li><strong>Jul 2024</strong> — amendment + ≈$135.6M combined penalties ($75M OCC, $60.6M Fed) for insufficient data-quality progress</li>
             <li><strong>Dec 2025</strong> — OCC terminated its 2024 amendment; most programs "at or nearly at target-state"</li>
+            <li><strong>Mar 2026</strong> — Fed/OCC/FDIC re-proposed the Basel III Endgame (recalibrating credit, market &amp; operational risk) — capital rules drive risk platforms</li>
             <li><strong>Why UI cares:</strong> the core deficiency is data quality — your screens must show correct, consistent, auditable data. Transformation is the modernization budget.</li>
           </ul>
           <p class="src"><a href="https://www.federalreserve.gov/newsevents/pressreleases/enforcement20240710a.htm" target="_blank" rel="noopener">Fed · Jul 2024</a> · <a href="https://www.occ.treas.gov/news-issuances/news-releases/2024/nr-occ-2024-76.html" target="_blank" rel="noopener">OCC · Jul 2024</a> · <a href="https://www.citigroup.com/global/news/press-release/2025/citi-statement-on-occ-removal-of-amendment-to-consent-order" target="_blank" rel="noopener">Citi · Dec 2025</a></p>
         </div>
+      </div>
 
-        <div class="firm-card">
-          <h3>Brand &amp; design lore</h3>
-          <ul class="firm-list">
-            <li>The <strong>arc over “citi”</strong> — drawn by <strong>Paula Scher (Pentagram), 1998</strong>, for the Citicorp–Travelers merger; reportedly sketched in the first meeting</li>
-            <li>The arc is the Travelers red umbrella reduced to its curve — the literal umbrella mark was <strong>sold back to Travelers in 2007</strong>; the arc stayed</li>
-            <li>Long-running tagline: <em>“The Citi never sleeps.”</em></li>
-            <li>Interview angle: knowing the mark's lineage (bank + insurer merger logic, Scher/Pentagram) signals design literacy instantly</li>
-            <li>This site's arc motif is a study homage — <strong>not</strong> the mark</li>
-          </ul>
-          <p class="src"><a href="https://www.pentagram.com/about/paula-scher" target="_blank" rel="noopener">Pentagram — Paula Scher</a> · <a href="https://www.wsj.com/articles/SB117137765766107222" target="_blank" rel="noopener">WSJ · umbrella, 2007</a></p>
+      <details class="fold fold-sub">
+        <summary>
+          The full picture — businesses, technology, brand lore, milestones &amp; glossary
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
+        <div class="firm-grid">
+          <div class="firm-card">
+            <h3>The five core businesses</h3>
+            <div class="biz-row"><span class="biz-name">Services</span><span>Treasury &amp; Trade Solutions + Securities Services — payments, cash management, trade, custody. The cross-border core; record revenues 2024 and 2025.</span></div>
+            <div class="biz-row"><span class="biz-name">Markets</span><span>Rates, FX, prime services; revenue +11% in 2025 with strength in fixed income and growing equities scale.</span></div>
+            <div class="biz-row"><span class="biz-name">Banking</span><span>Investment, corporate &amp; commercial banking under Vis Raghavan — record 2025 (+32%), best M&A revenue year in Citi's history.</span></div>
+            <div class="biz-row"><span class="biz-name">Wealth</span><span>Private bank + Citigold, led by Andy Sieg; retail banking and U.S. Citigold were folded in (Nov 2025).</span></div>
+            <div class="biz-row"><span class="biz-name">U.S. Consumer Cards</span><span>Standalone segment since Nov 2025, led by Pam Habner — Citi-branded cards and major co-brand partners.</span></div>
+            <p class="src"><a href="https://www.citigroup.com/global/businesses" target="_blank" rel="noopener">citi — businesses</a> · <a href="https://www.citigroup.com/global/news/press-release/2025/citi-cfo-transition-plans-changes-united-states-personal-banking-business" target="_blank" rel="noopener">Nov 2025 reorg release</a></p>
+          </div>
+
+          <div class="firm-card">
+            <h3>Vision &amp; priorities</h3>
+            <blockquote>“The preeminent banking partner for institutions with cross-border needs, a global leader in wealth management, a valued personal bank in its home market.”</blockquote>
+            <p class="firm-small">Two firm priorities: <strong>improving business performance</strong> and <strong>executing the Transformation</strong>. Simplification continues: exits of most international consumer franchises — Banamex separated (Dec 2024), 25% stake sale agreed, IPO planned; Poland consumer exit; Russia fully exited (Feb 2026). 2026 Investor Day laid out the return targets.</p>
+            <p class="src"><a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements/2026/annual-report/letter-to-shareholders" target="_blank" rel="noopener">2025 Letter to Shareholders</a></p>
+          </div>
+
+          <div class="firm-card">
+            <h3>Tech at Citi</h3>
+            <ul class="firm-list">
+              <li><strong>$9.1B</strong> annual technology &amp; communications spend (FY2024)</li>
+              <li><strong>Google Cloud</strong> strategic multiyear alliance — infra modernization + firmwide AI</li>
+              <li><strong>182,000+</strong> employees using proprietary AI tools; AI coding tools ≈ <strong>100,000 hours/week</strong> of developer capacity</li>
+              <li><strong>Tim Ryan</strong> — Head of Technology &amp; Business Enablement</li>
+              <li><strong>Enterprise Risk Technology (ERT)</strong> — within Functions Technology, building platforms for <strong>ERM, ICRM, Retail Credit Risk, Operational Risk &amp; Model Risk</strong>; <em>this role sits here (Rutherford, NJ)</em></li>
+              <li>Platforms to name: <strong>CitiDirect</strong> (institutional), <strong>Citi Mobile app</strong>, <strong>Citigold</strong>, <strong>Citi Token Services</strong> (digital assets), <strong>Citi Travel</strong> w/ Booking.com</li>
+              <li>Tech hubs: New York · Tampa · Irving · Jacksonville · Sioux Falls · <strong>Rutherford, NJ</strong> · London · Belfast · Dublin · Warsaw · Budapest · Mumbai · Pune · Chennai · Manila · Mississauga · Singapore</li>
+            </ul>
+            <p class="src"><a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements/2026/annual-report" target="_blank" rel="noopener">2025 10-K</a> · <a href="https://jobs.citi.com" target="_blank" rel="noopener">jobs.citi.com</a></p>
+          </div>
+
+          <div class="firm-card">
+            <h3>Brand &amp; design lore</h3>
+            <ul class="firm-list">
+              <li>The <strong>arc over “citi”</strong> — drawn by <strong>Paula Scher (Pentagram), 1998</strong>, for the Citicorp–Travelers merger; reportedly sketched in the first meeting</li>
+              <li>The arc is the Travelers red umbrella reduced to its curve — the literal umbrella mark was <strong>sold back to Travelers in 2007</strong>; the arc stayed</li>
+              <li>Long-running tagline: <em>“The Citi never sleeps.”</em></li>
+              <li>Interview angle: knowing the mark's lineage (bank + insurer merger logic, Scher/Pentagram) signals design literacy instantly</li>
+              <li>This site's arc motif is a study homage — <strong>not</strong> the mark</li>
+            </ul>
+            <p class="src"><a href="https://www.pentagram.com/about/paula-scher" target="_blank" rel="noopener">Pentagram — Paula Scher</a> · <a href="https://www.wsj.com/articles/SB117137765766107222" target="_blank" rel="noopener">WSJ · umbrella, 2007</a></p>
+          </div>
         </div>
-      </div>
 
-      <div class="firm-card firm-wide">
-        <h3>Milestones worth quoting</h3>
-        <ol class="mile-list">
-          <li><span class="plan-day">1812</span><span class="plan-txt"><strong>June 16 — City Bank of New York founded</strong>; first president Samuel Osgood. Depository status won financing the War of 1812.</span></li>
-          <li><span class="plan-day">1967</span><span class="plan-txt"><strong>The “Everything Card”</strong> — First National City's charge card, an early consumer credit revolution.</span></li>
-          <li><span class="plan-day">1976</span><span class="plan-txt"><strong>Renamed Citibank, N.A.</strong> (from First National City Bank); “Citibank” had been the wire-code nickname since the 1860s.</span></li>
-          <li><span class="plan-day">1977</span><span class="plan-txt"><strong>One of the first ATMs</strong> — 24-hour service launched in Queens, pivoting the bank to retail.</span></li>
-          <li><span class="plan-day">1981</span><span class="plan-txt"><strong>Cards move to Sioux Falls, SD</strong> — the interest-rate arbitrage that made Sioux Falls a card capital.</span></li>
-          <li><span class="plan-day">1998</span><span class="plan-txt"><strong>Citicorp + Travelers merger</strong> — record ~$70B deal creates Citigroup; Paula Scher's arc logo arrives with it.</span></li>
-          <li><span class="plan-day">2007</span><span class="plan-txt"><strong>Umbrella sold back to Travelers</strong>; Citi keeps the arc. Financial crisis support follows a year later.</span></li>
-          <li><span class="plan-day">2012</span><span class="plan-txt"><strong>Bicentennial</strong> — 200 years. Citi Bike follows in 2013.</span></li>
-          <li><span class="plan-day">2016</span><span class="plan-txt"><strong>HQ returns to 388 Greenwich Street</strong>, lower Manhattan.</span></li>
-          <li><span class="plan-day">2021</span><span class="plan-txt"><strong>Jane Fraser becomes CEO (Mar 1)</strong> — the first woman to lead a major U.S. bank.</span></li>
-          <li><span class="plan-day">2023</span><span class="plan-txt"><strong>Org simplified to five businesses</strong>, each led by a direct report to the CEO.</span></li>
-          <li><span class="plan-day">2025</span><span class="plan-txt"><strong>$85.2B revenue — decade high</strong>; Fraser named Chair (Oct); CFO transition + USPB reorg announced (Nov); OCC removes 2024 amendment (Dec).</span></li>
-          <li><span class="plan-day">2026</span><span class="plan-txt"><strong>Luchetti takes CFO (Mar)</strong>; FY2025 10-K filed — five segments incl. U.S. Consumer Cards; Russia exit closed (Feb).</span></li>
-        </ol>
-        <p class="src"><a href="https://www.citigroup.com/global/about-us/heritage" target="_blank" rel="noopener">Citi heritage timeline</a> · <a href="https://en.wikipedia.org/wiki/Citibank" target="_blank" rel="noopener">Wikipedia — Citibank</a></p>
-      </div>
-
-      <div class="firm-card firm-wide">
-        <h3>Glossary — the words your stakeholders will use</h3>
-        <div class="gloss-grid">
-          <div class="gloss-item"><strong>IBAN</strong><span>International account number. Mod-97 checksum — pre-validate it client-side and you'll look senior.</span></div>
-          <div class="gloss-item"><strong>SWIFT / BIC</strong><span>Bank identifier codes for cross-border messaging between institutions.</span></div>
-          <div class="gloss-item"><strong>ACH · FedNow</strong><span>U.S. batch payments vs instant payments rails — different latency promises in the UI.</span></div>
-          <div class="gloss-item"><strong>ISO 20022</strong><span>Rich-data payments messaging standard replacing sparse legacy formats (incl. legacy SWIFT MT).</span></div>
-          <div class="gloss-item"><strong>KYC / AML</strong><span>Know-your-customer identity checks + anti-money-laundering screening — onboarding flows must model these states.</span></div>
-          <div class="gloss-item"><strong>OFAC screening</strong><span>Sanctions checks on parties; expect “pending screening”/hold states in payment UIs.</span></div>
-          <div class="gloss-item"><strong>Maker-checker</strong><span>Dual authorization — one person creates a payment, another approves. UI must model the four-eyes lifecycle.</span></div>
-          <div class="gloss-item"><strong>Nostro / vostro</strong><span>Correspondent bank accounts each side of a border; reconciliation views built on them.</span></div>
-          <div class="gloss-item"><strong>T+1</strong><span>Trade settles one business day after execution (U.S. equities since May 2024).</span></div>
-          <div class="gloss-item"><strong>Co-brand card</strong><span>Citi-branded cards partnered with airlines/retailers (e.g., American Airlines, Costco) — a USCC specialty.</span></div>
+        <div class="firm-card firm-wide">
+          <h3>Milestones worth quoting</h3>
+          <ol class="mile-list">
+            <li><span class="plan-day">1812</span><span class="plan-txt"><strong>June 16 — City Bank of New York founded</strong>; first president Samuel Osgood. Depository status won financing the War of 1812.</span></li>
+            <li><span class="plan-day">1967</span><span class="plan-txt"><strong>The “Everything Card”</strong> — First National City's charge card, an early consumer credit revolution.</span></li>
+            <li><span class="plan-day">1976</span><span class="plan-txt"><strong>Renamed Citibank, N.A.</strong> (from First National City Bank); “Citibank” had been the wire-code nickname since the 1860s.</span></li>
+            <li><span class="plan-day">1977</span><span class="plan-txt"><strong>One of the first ATMs</strong> — 24-hour service launched in Queens, pivoting the bank to retail.</span></li>
+            <li><span class="plan-day">1981</span><span class="plan-txt"><strong>Cards move to Sioux Falls, SD</strong> — the interest-rate arbitrage that made Sioux Falls a card capital.</span></li>
+            <li><span class="plan-day">1998</span><span class="plan-txt"><strong>Citicorp + Travelers merger</strong> — record ~$70B deal creates Citigroup; Paula Scher's arc logo arrives with it.</span></li>
+            <li><span class="plan-day">2007</span><span class="plan-txt"><strong>Umbrella sold back to Travelers</strong>; Citi keeps the arc. Financial crisis support follows a year later.</span></li>
+            <li><span class="plan-day">2012</span><span class="plan-txt"><strong>Bicentennial</strong> — 200 years. Citi Bike follows in 2013.</span></li>
+            <li><span class="plan-day">2016</span><span class="plan-txt"><strong>HQ returns to 388 Greenwich Street</strong>, lower Manhattan.</span></li>
+            <li><span class="plan-day">2021</span><span class="plan-txt"><strong>Jane Fraser becomes CEO (Mar 1)</strong> — the first woman to lead a major U.S. bank.</span></li>
+            <li><span class="plan-day">2023</span><span class="plan-txt"><strong>Org simplified to five businesses</strong>, each led by a direct report to the CEO.</span></li>
+            <li><span class="plan-day">2025</span><span class="plan-txt"><strong>$85.2B revenue — decade high</strong>; Fraser named Chair (Oct); CFO transition + USPB reorg announced (Nov); OCC removes 2024 amendment (Dec).</span></li>
+            <li><span class="plan-day">2026</span><span class="plan-txt"><strong>Luchetti takes CFO (Mar)</strong>; FY2025 10-K filed — five segments incl. U.S. Consumer Cards; Russia exit closed (Feb); revised Basel III Endgame proposals (Mar).</span></li>
+          </ol>
+          <p class="src"><a href="https://www.citigroup.com/global/about-us/heritage" target="_blank" rel="noopener">Citi heritage timeline</a> · <a href="https://en.wikipedia.org/wiki/Citibank" target="_blank" rel="noopener">Wikipedia — Citibank</a></p>
         </div>
-      </div>
+
+        <div class="firm-card firm-wide">
+          <h3>Glossary — the words your stakeholders will use</h3>
+          <div class="gloss-grid">
+            <div class="gloss-item"><strong>IBAN</strong><span>International account number. Mod-97 checksum — pre-validate it client-side and you'll look senior.</span></div>
+            <div class="gloss-item"><strong>SWIFT / BIC</strong><span>Bank identifier codes for cross-border messaging between institutions.</span></div>
+            <div class="gloss-item"><strong>ACH · FedNow</strong><span>U.S. batch payments vs instant payments rails — different latency promises in the UI.</span></div>
+            <div class="gloss-item"><strong>ISO 20022</strong><span>Rich-data payments messaging standard replacing sparse legacy formats (incl. legacy SWIFT MT).</span></div>
+            <div class="gloss-item"><strong>KYC / AML</strong><span>Know-your-customer identity checks + anti-money-laundering screening — onboarding flows must model these states.</span></div>
+            <div class="gloss-item"><strong>OFAC screening</strong><span>Sanctions checks on parties; expect “pending screening”/hold states in payment UIs.</span></div>
+            <div class="gloss-item"><strong>Maker-checker</strong><span>Dual authorization — one person creates a payment, another approves. UI must model the four-eyes lifecycle.</span></div>
+            <div class="gloss-item"><strong>Nostro / vostro</strong><span>Correspondent bank accounts each side of a border; reconciliation views built on them.</span></div>
+            <div class="gloss-item"><strong>T+1</strong><span>Trade settles one business day after execution (U.S. equities since May 2024).</span></div>
+            <div class="gloss-item"><strong>Co-brand card</strong><span>Citi-branded cards partnered with airlines/retailers (e.g., American Airlines, Costco) — a USCC specialty.</span></div>
+          </div>
+        </div>
+      </details>
     </section>
 
-    <!-- ============ SOURCES ============ -->
-    <section class="src-sec shell" id="sources" aria-labelledby="srcTitle" data-hideable>
-      <header class="sec-head">
+    <!-- ============ SOURCES (folded) ============ -->
+    <details class="fold src-sec shell" id="sources">
+      <summary class="sec-head">
         <span class="sec-no mono">07</span>
-        <h2 id="srcTitle">Sources &amp; further reading</h2>
+        <h2>Sources &amp; further reading</h2>
         <span class="sec-rule" aria-hidden="true"></span>
-        <button class="sec-hide" data-hide-section="sources" type="button" aria-label="Hide sources section">Hide</button>
-      </header>
+        <span class="sec-note mono">verified links · opens on tap</span>
+        <span class="fold-ico" aria-hidden="true"></span>
+      </summary>
       <div class="src-grid">
         <div class="firm-card">
           <h3>Primary sources</h3>
@@ -503,6 +564,7 @@
             <li><a href="https://www.citigroup.com/global/about-us/global-presence/united-states" target="_blank" rel="noopener">Citi — Global presence: United States</a> · HQ, founding, ATM/renaming history</li>
             <li><a href="https://www.citigroup.com/global/businesses" target="_blank" rel="noopener">Citi — Businesses</a> · the five core businesses</li>
             <li><a href="https://www.citigroup.com/global/about-us/leadership/jane-fraser" target="_blank" rel="noopener">Citi — Jane Fraser bio</a> · CEO Mar 2021, Chair Oct 2025</li>
+            <li><a href="https://www.citigroup.com/global/about-us/leadership/zdenek-turek" target="_blank" rel="noopener">Citi — Zdenek Turek bio</a> · CRO since Feb 2021; risk org mandate</li>
             <li><a href="https://www.citigroup.com/global/investors/annual-reports-and-proxy-statements/2026/annual-report" target="_blank" rel="noopener">Citi 2025 Annual Report (Form 10-K)</a> · five segments, AI scale, Google Cloud, Transformation status</li>
             <li><a href="https://www.businesswire.com/news/home/20260114453370/en/Citigroup-Reports-Fourth-Quarter-and-Full-Year-2025-Results" target="_blank" rel="noopener">Citigroup Q4/FY2025 results</a> · Jan 14, 2026 — revenue, capital returns</li>
             <li><a href="https://www.citigroup.com/global/news/press-release/2025/citi-cfo-transition-plans-changes-united-states-personal-banking-business" target="_blank" rel="noopener">Citi — CFO transition &amp; USPB changes</a> · Nov 20, 2025</li>
@@ -511,7 +573,16 @@
             <li><a href="https://www.occ.treas.gov/news-issuances/news-releases/2024/nr-occ-2024-76.html" target="_blank" rel="noopener">OCC NR 2024-76 — $75M penalty + amendment</a> · Jul 10, 2024 (amendment terminated Dec 2025, see occ.gov enforcement actions)</li>
             <li><a href="https://www.nytimes.com/1998/04/07/news/citicorp-and-travelers-plan-to-merge-in-record-70-billion-deal-a-new-no.html" target="_blank" rel="noopener">NYT — Citicorp/Travelers merger</a> · Apr 7, 1998, record $70B deal</li>
             <li><a href="https://www.pentagram.com/about/paula-scher" target="_blank" rel="noopener">Pentagram — Paula Scher</a> · Citi identity, 1998</li>
-            <li><a href="https://jobs.citi.com" target="_blank" rel="noopener">jobs.citi.com</a> · live tech-hub locations &amp; role levels (AVP/VP/SVP ladder)</li>
+            <li><a href="https://jobs.citi.com" target="_blank" rel="noopener">jobs.citi.com</a> · live tech-hub roles — Rutherford risk-tech postings reveal team scope</li>
+          </ol>
+        </div>
+        <div class="firm-card">
+          <h3>Risk-domain sources</h3>
+          <ol class="src-list">
+            <li><a href="https://www.bis.org/publ/bcbs239.htm" target="_blank" rel="noopener">BIS — BCBS 239</a> · “Principles for effective risk data aggregation and risk reporting” (Jan 2013, 14 principles)</li>
+            <li><a href="https://www.federalreserve.gov/supervisionreg/ccar.htm" target="_blank" rel="noopener">Federal Reserve — CCAR</a> · annual stress-test exercise; supervisory scenarios</li>
+            <li><a href="https://www.bis.org/bcbs/publ/d424.htm" target="_blank" rel="noopener">BIS — Basel III: finalising post-crisis reforms</a> · the “Basel III endgame”; US agencies issued revised NPRs on <strong>Mar 19, 2026</strong> (Fed/OCC/FDIC)</li>
+            <li>Team intel · Citi job postings for ERT / Risk Technology in Rutherford (stress testing, credit risk, ERT data) — read a few before the panel</li>
           </ol>
         </div>
         <aside class="firm-card src-aside">
@@ -526,7 +597,7 @@
           <p class="src">Retrieved Sep 14, 2026 · unofficial study aid · not affiliated with Citigroup</p>
         </aside>
       </div>
-    </section>
+    </details>
 
     <footer class="foot shell">
       <div class="foot-rule" aria-hidden="true"></div>

@@ -15,7 +15,6 @@
     unknown: {},
     checks: {},
     stars: {},
-    hidden: {},
     track: "ng",
     reviewOnly: false,
     shuffled: false,
@@ -463,57 +462,47 @@
     });
   });
 
-  /* ---------------- section visibility ---------------- */
-  if (!state.hidden || typeof state.hidden !== "object") state.hidden = {};
-  const HIDEABLE = ["role", "star", "reference", "plan", "firm", "sources"];
-
-  function applyHidden() {
-    HIDEABLE.forEach((id) => {
-      const sec = document.getElementById(id);
-      const isHidden = Boolean(state.hidden[id]);
-      if (sec) sec.classList.toggle("is-hidden", isHidden);
-      document.querySelectorAll(`[data-section-toggle="${id}"]`).forEach((btn) => {
-        btn.setAttribute("aria-pressed", String(!isHidden));
-        btn.textContent = btn.textContent.replace(/^Show |^Hide /, "");
-        if (isHidden) btn.textContent = `Show ${btn.textContent}`;
-      });
-    });
+  /* ---------------- quick nav: scroll spy + fold auto-open ---------------- */
+  function openFoldsFor(el) {
+    let node = el;
+    while (node && node !== document.body) {
+      if (node.tagName === "DETAILS") node.open = true;
+      node = node.parentElement;
+    }
   }
 
-  function setHidden(id, hide) {
-    if (!HIDEABLE.includes(id)) return;
-    if (hide) state.hidden[id] = true;
-    else delete state.hidden[id];
-    save();
-    applyHidden();
-  }
-
-  document.querySelectorAll("[data-hide-section]").forEach((btn) => {
-    btn.addEventListener("click", () => setHidden(btn.dataset.hideSection, true));
-  });
-  document.querySelectorAll("[data-section-toggle]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.sectionToggle;
-      setHidden(id, !state.hidden[id]);
-    });
-  });
-  $("#showAllSections")?.addEventListener("click", () => {
-    state.hidden = {};
-    save();
-    applyHidden();
-  });
-  // Navigating to a hidden section unhides it first
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener("click", () => {
       const id = a.getAttribute("href").slice(1);
-      if (state.hidden[id]) setHidden(id, false);
+      const t = id && document.getElementById(id);
+      if (t) openFoldsFor(t);
     });
   });
+
+  const navLinks = [...document.querySelectorAll(".qnav a[href^='#']")];
+  const navTargets = navLinks
+    .map((a) => document.getElementById(a.getAttribute("href").slice(1)))
+    .filter(Boolean);
+
+  if ("IntersectionObserver" in window && navTargets.length) {
+    const ratios = new Map();
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((e) => ratios.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0));
+      let best = null;
+      let bestRatio = 0;
+      ratios.forEach((ratio, id) => {
+        if (ratio > bestRatio) { bestRatio = ratio; best = id; }
+      });
+      navLinks.forEach((a) =>
+        a.classList.toggle("active", best !== null && a.getAttribute("href") === `#${best}`)
+      );
+    }, { rootMargin: "-18% 0px -55% 0px", threshold: [0, 0.25, 0.6, 1] });
+    navTargets.forEach((t) => spy.observe(t));
+  }
 
   /* ---------------- boot ---------------- */
   applyTheme(document.documentElement.dataset.theme || "dark");
   $("#reviewToggle").setAttribute("aria-pressed", String(state.reviewOnly));
-  applyHidden();
   renderTabs();
   renderDeck();
   updateHero();

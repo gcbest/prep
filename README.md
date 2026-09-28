@@ -3,11 +3,16 @@
 A no-build Citi interview study deck for the **Lead UI Engineer / Senior UI Developer**
 role in Citi's **Enterprise Risk Technology (ERT)** — Rutherford, NJ, Zoom panel.
 
-The drill deck is tuned to the job description: **Angular 16+**, JavaScript/TypeScript,
-HTML5/CSS/Bootstrap, **Jasmine & Karma** and Cypress testing, UI system design with
-a11y/performance, DevOps (Git, JIRA, Agile/Scrum, TeamCity/uDeploy/Jenkins, Micro
-Frontends, Docker), MongoDB/NoSQL, and the systems-analysis + leadership material a
-senior hire is probed on.
+The drill deck is tuned to the job description and team research: **Angular 16+**,
+JavaScript/TypeScript, HTML5/CSS/Bootstrap, **Jasmine & Karma** and Cypress testing,
+UI system design with a11y/performance, DevOps (Git, JIRA, Agile/Scrum,
+TeamCity/uDeploy/Jenkins, Micro Frontends, Docker), **risk domain** (stress testing /
+CCAR, BCBS 239, VaR/ES, limit monitoring), and the systems-analysis + leadership
+material a senior hire is probed on — 72 flashcards across 9 tracks.
+
+The page is organized as a guided flow: drill deck → role & team brief → 7-day
+countdown → STAR stories, with the last-hour reference, Citi intel, and sources
+colapsed behind one-tap folds so nothing overwhelms.
 
 ## Run locally
 

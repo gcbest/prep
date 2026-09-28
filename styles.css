@@ -416,40 +416,110 @@ kbd {
   background: linear-gradient(90deg, var(--line), transparent 85%);
 }
 .sec-note { color: var(--muted); white-space: nowrap; }
-.sec-hide {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.64rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  background: transparent;
-  border: 1px dashed var(--line);
-  border-radius: 999px;
-  padding: 0.3em 0.8em;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.16s, border-color 0.16s;
-}
-.sec-hide:hover { color: var(--red); border-color: var(--red); }
 
-/* sections visibility bar */
-.sections-bar {
-  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-  margin-top: clamp(1.6rem, 4vw, 2.4rem);
-  padding: 0.7rem 0;
-  border-block: 1px solid var(--line-soft);
+/* ---------- quick nav (jump bar) ---------- */
+.qnav {
+  position: sticky;
+  top: 2.85rem;
+  z-index: 55;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-soft);
 }
-.sections-label {
+.qnav-inner {
+  display: flex; align-items: center; gap: 0.4rem;
+  overflow-x: auto;
+  padding: 0.55rem 0;
+  scrollbar-width: none;
+}
+.qnav-inner::-webkit-scrollbar { display: none; }
+.qnav-label {
+  flex-shrink: 0;
   color: var(--red);
-  font-size: 0.68rem;
-  font-weight: 600;
+  font-size: 0.62rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-.sections-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-section.is-hidden { display: none; }
+.qnav a {
+  flex-shrink: 0;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.38em 0.85em;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition: color 0.16s, border-color 0.16s, background 0.16s;
+}
+.qnav a:hover { color: var(--ink); border-color: var(--line); }
+.qnav a.active { color: var(--bg); background: var(--ink); border-color: var(--ink); }
 
-section { scroll-margin-top: 4.5rem; }
+/* ---------- folded sections (progressive disclosure) ---------- */
+details.fold > summary { list-style: none; cursor: pointer; }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary::marker { content: ""; }
+.fold-ico {
+  flex-shrink: 0;
+  align-self: center;
+  width: 1.7em; height: 1.7em;
+  display: grid; place-items: center;
+  border: 1px dashed var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  transition: color 0.16s, border-color 0.16s;
+}
+.fold-ico::before { content: "+"; }
+details.fold[open] > summary .fold-ico::before { content: "–"; }
+details.fold > summary:hover .fold-ico { color: var(--ink); border-color: var(--ink); }
+.fold-sub {
+  margin-top: 1.6rem;
+  padding-top: 1.15rem;
+  border-top: 1px dashed var(--line);
+}
+.fold-sub > summary {
+  display: flex; align-items: center; gap: 0.85rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.fold-sub > summary:hover { color: var(--ink); }
+.fold-sub > summary .fold-ico { margin-left: auto; }
+.fold-sub .ref-grid, .fold-sub .firm-grid { margin-top: 1.35rem; }
+.fold-sub .firm-wide { margin-top: 1.15rem; }
+
+/* ---------- how-to steps ---------- */
+.steps {
+  list-style: none;
+  margin: clamp(1.7rem, 4vw, 2.4rem) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.step {
+  display: flex; gap: 0.85rem; align-items: flex-start;
+  padding: 0.95rem 1.1rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--bg-2) 55%, transparent);
+}
+.step-no {
+  color: var(--red);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding-top: 0.22em;
+}
+.step strong { display: block; color: var(--ink-strong); font-size: 0.95rem; }
+.step p { margin-top: 0.35em; color: var(--muted); font-size: 0.87em; }
+
+section, details.fold { scroll-margin-top: 6.4rem; }
 .deck-sec { padding-top: clamp(2.6rem, 6vw, 4rem); }
 .plan-sec, .star-sec, .ref-sec { padding-top: clamp(3rem, 7vw, 5rem); }
 
@@ -867,6 +937,12 @@ section { scroll-margin-top: 4.5rem; }
 
 /* ---------- know the firm ---------- */
 .firm-sec, .src-sec { padding-top: clamp(3rem, 7vw, 5rem); }
+.src-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+}
 
 .firm-grid {
   display: grid;
@@ -1097,8 +1173,10 @@ section { scroll-margin-top: 4.5rem; }
   .plan-grid { grid-template-columns: 1fr; }
   .star-grid, .ref-grid { grid-template-columns: 1fr 1fr; }
   .firm-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
+  .qnav { top: 2.7rem; }
   .statstrip { grid-template-columns: repeat(2, 1fr); }
   .statstrip > div:nth-child(odd) { border-left: 0; padding-left: 0; }
   .statstrip > div:nth-child(n+3) { border-top: 1px solid var(--line); }

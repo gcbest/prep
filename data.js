@@ -13,7 +13,8 @@ const TRACKS = [
   { id: "test",  num: "05", label: "Testing: Jasmine · Karma · Cypress" },
   { id: "sys",   num: "06", label: "UI Design · A11y · Perf" },
   { id: "ops",   num: "07", label: "DevOps · MFE · Agile" },
-  { id: "lead",  num: "08", label: "ERT · Leadership · Behavioral" },
+  { id: "risk",  num: "08", label: "Risk Domain · ERT" },
+  { id: "lead",  num: "09", label: "Leadership · Behavioral" },
 ];
 
 const QUESTIONS = [
@@ -691,7 +692,97 @@ const QUESTIONS = [
     ]
   },
 
-  /* ---------------- 08 · ERT · LEADERSHIP · BEHAVIORAL ---------------- */
+  /* ---------------- 08 · RISK DOMAIN · ERT ---------------- */
+  {
+    id: "risk-1", track: "risk",
+    q: "What does Citi's Enterprise Risk Technology (ERT) actually do — and who are its clients?",
+    a: "ERT is the technology arm serving Citi's risk and control functions. It sits within Functions Technology and builds platforms for global partners: Enterprise Risk Management (ERM), Independent Compliance Risk Management (ICRM), Retail Credit Risk, Operational Risk, and Model Risk. Its 'clients' are risk managers across the firm — which is exactly why the JD says 'global risk clients' and 'solving our Risk Managers' biggest pain points'. The Rutherford, NJ hub is the center of gravity for this work: risk data platforms, dashboards, workflow tools, and regulatory-reporting systems.",
+    points: [
+      "Functions Technology → ERT supports ERM, ICRM, Retail Credit Risk, Operational Risk, Model Risk",
+      "'Global risk clients' = internal risk managers worldwide, not external customers",
+      "Rutherford hosts risk-tech teams incl. the Stress Testing Platform and Credit Risk Technology",
+      "Citi's risk org is led by CRO Zdenek Turek (since Feb 2021) — all risks 'measured, reviewed and monitored on an ongoing basis'",
+    ]
+  },
+  {
+    id: "risk-2", track: "risk",
+    q: "Name the main risk types — and what each means for a UI you build.",
+    a: "Market risk (prices move: rates, FX, equities — fast, intraday views), credit risk (counterparties fail: exposure, limits, concentration — deep drill-downs), operational risk (process failures, fraud, outages — case workflows), model risk (models wrong: SR 11-7-style governance and validation trails), and compliance risk (ICRM: KYC/AML/sanctions). Each has a different data cadence, permission model, and audit expectation — which is why one generic table never serves them all.",
+    points: [
+      "Market risk UIs are time-sensitive: ticks, snapshots, as-of timestamps everywhere",
+      "Credit risk UIs are relationship-shaped: counterparty → facility → position drill-downs",
+      "Operational risk = case management: statuses, owners, evidence, SLAs, sign-off",
+      "Model risk: model inventory, validation status, documented limitations",
+    ]
+  },
+  {
+    id: "risk-3", track: "risk",
+    q: "What is stress testing (CCAR/DFAST) — and where does a UI team fit?",
+    a: "Banks must prove they can survive bad economies. The Fed's annual CCAR/DFAST exercise applies supervisory scenarios (baseline, severely adverse) and each bank projects losses, P&L, and capital over roughly nine quarters. Citi runs an internal Stress Testing Platform covering scenario capture/translation, projection runs, results review, and submissions. UI work: scenario configuration forms, run-monitoring boards, results grids with drill-down, reviewer annotations, and maker-checker approvals — all strictly auditable.",
+    points: [
+      "Flow: scenario → projections (PPNR, losses, RWA) → capital ratios → Fed submission",
+      "Rutherford posts roles like 'Technical Lead Stress Testing Platform' — scenario translator modules are core",
+      "UI requirements: reproducibility (re-create an exact snapshot), lineage, sign-off workflow",
+      "Vocabulary to know: severely adverse scenario, PPNR, capital action, CECL",
+    ]
+  },
+  {
+    id: "risk-4", track: "risk",
+    q: "Explain BCBS 239 — and why it lands on the frontend.",
+    a: "The Basel Committee's 'Principles for effective risk data aggregation and risk reporting' (2013) — 14 principles for how banks must aggregate and report risk data accurately and quickly. G-SIBs like Citi are supervised against it. For a UI engineer it is concrete: every number on screen must be traceable, timely, complete, and consistent across screens. That means as-of timestamps, lineage drill-downs, explicit missing-data states, reconciliation views — and never silently rounding or dropping data.",
+    points: [
+      "Principles map to UI: accuracy & integrity, completeness, timeliness, adaptability, clarity",
+      "Granularity: data must aggregate up AND drill down — your grid design IS the requirement",
+      "Data-quality dashboards (exceptions, stale feeds) are first-class product surfaces here",
+      "Ties to Citi's consent-order history: data quality is a board-level topic at this bank",
+    ]
+  },
+  {
+    id: "risk-5", track: "risk",
+    q: "Market risk 101: VaR vs Expected Shortfall — and what the Basel reforms change.",
+    a: "VaR answers 'what is the worst loss at 99% confidence over 10 days' — but says nothing about how bad the tail beyond that point gets. Expected Shortfall averages the losses in that tail, capturing catastrophe better; FRTB (Fundamental Review of the Trading Book) makes ES the standard, with liquidity horizons per asset class. In the US, the Basel III endgame was re-proposed on March 19, 2026 (Fed/OCC/FDIC) — recalibrating credit, market, and operational risk and collapsing dual calculations. Risk managers compare these measures daily and have to explain moves.",
+    points: [
+      "VaR is a percentile; ES is a tail average — explain both to a non-technical stakeholder",
+      "Trading book vs banking book treatment drives different limits and screens",
+      "Risk managers live on 'explain the move': attribution views showing which positions drove the change",
+      "Capital rules are actively changing (Mar 2026 NPRs) — platforms must adapt; show you follow this",
+    ]
+  },
+  {
+    id: "risk-6", track: "risk",
+    q: "Credit risk 101: PD, LGD, EAD, RWA — and the views a risk manager needs.",
+    a: "PD = probability a counterparty defaults; LGD = loss given default (recovery haircut); EAD = exposure at default (current + potential draw); RWA = risk-weighted assets (exposure × risk weight) feeding capital ratios; PFE = potential future exposure on derivatives. The views: exposure by counterparty/sector/geography, limit utilization, concentration heat maps, and drill-downs to underlying positions — with what-if scenario overlays.",
+    points: [
+      "EAD × PD × LGD ≈ expected loss — the math behind credit provisioning",
+      "Counterparty hierarchies (group → legal entity → facility) must be navigable in the UI",
+      "Surface dirty states: pending ratings, stale financials — show them, never hide them",
+      "Collateral, settlement, and exposure views usually live side by side",
+    ]
+  },
+  {
+    id: "risk-7", track: "risk",
+    q: "Design a limit-monitoring and breach workflow for risk managers.",
+    a: "The core screen is a dense grid of limits: utilization (bar + exact number), as-of timestamp, trend — sortable, filterable, virtualized. The breach flow is a state machine: threshold crossing → alert → breach record with severity → assigned owner → mitigation notes → maker-checker approval → close, every transition audited. Intraday vs end-of-day views must be visibly distinguished. Announce alerts via the notification service and live region; drill from limit → position → trade so the number is always explicable.",
+    points: [
+      "Soft limit (warning) vs hard limit (breach) — different escalation paths",
+      "Keyboard-first: risk managers live in these grids all day (arrows, Enter, shortcuts)",
+      "Show the inputs the limit is computed from — trust is the product",
+      "Never show a stale number without its timestamp",
+    ]
+  },
+  {
+    id: "risk-8", track: "risk",
+    q: "How do you gather requirements from risk managers — your 'clients'?",
+    a: "The JD literally asks you to solve 'Risk Managers' biggest pain points'. Do it by shadowing their day: watch how they actually work (spreadsheets open beside your app?), learn their vocabulary (limits, runs, sign-off), prototype with production-shaped data, and ship quick wins to earn trust. Translate pain into product — 'I spend 40 minutes reconciling two screens' becomes one merged view with lineage. Then measure adoption. Enterprise software fails on usefulness, not features.",
+    points: [
+      "Ask for their worst hour of the week — that is your backlog",
+      "Prototype with real data shapes (volume, timestamps, bad rows) — demos with 3 rows lie",
+      "Speak in their nouns (exposure, run, sign-off), not frontend nouns (state, hook, component)",
+      "Small releases build credibility; big-bang portals lose users back to spreadsheets",
+    ]
+  },
+
+  /* ---------------- 09 · LEADERSHIP · BEHAVIORAL ---------------- */
   {
     id: "lead-1", track: "lead",
     q: "Tell me about yourself — the 90-second opening for THIS role.",
@@ -706,7 +797,7 @@ const QUESTIONS = [
   {
     id: "lead-2", track: "lead",
     q: "What do you know about Enterprise Risk Technology (ERT) — and why risk?",
-    a: "ERT is Citi's aligned business technology organization building products for global risk clients — the platforms risk managers use to see and act on market, credit, and operational risk. It's explicitly cross-functional and globally distributed, applying agile operating models, DevOps, and modern stacks (micro frontends, Docker hosting). Why risk UI: the hardest problems are making complex, high-stakes data usable and correct — and after the 2020 OCC/Fed consent orders, data quality and auditable UIs are a firmwide priority, which raises the bar for frontend craft.",
+    a: "ERT is Citi's Enterprise Risk Technology — the tech arm within Functions Technology that builds platforms for the firm's risk and control functions: Enterprise Risk Management, ICRM, Retail Credit Risk, Operational Risk, and Model Risk. Its users are risk managers globally, and Rutherford, NJ is a hub for this work (stress testing, credit risk, risk data). Why risk UI: the hardest problems are making complex, high-stakes data usable and correct — and after the 2020 OCC/Fed consent orders, data quality and auditable UIs are a firmwide priority, which raises the bar for frontend craft.",
     points: [
       "Risk UI = dense data, real-time updates, strict correctness — your favorite kind of hard",
       "Name the JD framing: 'solving our Risk Managers' biggest pain points'",
@@ -789,8 +880,8 @@ const TICKER = [
   "JASMINE + KARMA GREEN", "CYPRESS: cy.intercept() NOT cy.wait(300)", "ng update ONE MAJOR AT A TIME",
   "DOCKER: MULTI-STAGE BUILD", "MODULE FEDERATION LIVE", "TEAMCITY → uDEPLOY", "JIRA: DONE = TESTED + REVIEWED",
   "WCAG 2.2 AA MANDATORY", "LCP < 2.5s", "INP < 200ms", "CLS < 0.1", "min-width: 0",
-  "MONGODB: DOCUMENTS ≠ TABLES", "SEQUENCE DIAGRAM FIRST", "CODE REVIEW = REQUIREMENTS CHECK",
-  "IDEMPOTENCY KEYS ARMED", "AGILE: SURFACE RISK EARLY", "BOOTSTRAP OVERRIDES VIA TOKENS"
+  "BCBS 239: TRACE EVERY NUMBER", "CCAR: SCENARIO → CAPITAL", "VaR 99% / 10-DAY", "EOD SNAPSHOT ≠ INTRADAY",
+  "LIMIT BREACH = WORKFLOW", "AS-OF TIMESTAMPS EVERYWHERE", "SEQUENCE DIAGRAM FIRST", "CODE REVIEW = REQUIREMENTS CHECK"
 ];
 
 /* Day-of checklist */
@@ -818,6 +909,6 @@ const PLAN = [
   ["Day 3", "Forms + HTTP — reactive transfer form with cross-field validation; functional interceptors, error states, cancellation."],
   ["Day 4", "Testing day — one TestBed component spec, one HttpTestingController spec, one Cypress golden-path test. Review them like a lead would."],
   ["Day 5", "A11y + performance — modal focus flow, CDK virtual scroll, WCAG 2.2 AA checklist, LCP/INP/CLS diagnosis."],
-  ["Day 6", "Architecture + DevOps — micro frontends, Docker hosting, TeamCity/uDeploy pipeline, Git flows. Out loud, timed, whiteboard-style."],
+  ["Day 6", "Architecture + DevOps + risk domain — micro frontends, Docker, TeamCity/uDeploy, then drill the Risk Domain track out loud (BCBS 239, CCAR, limits)."],
   ["Day 7", "ERT + leadership — 'Know the firm' twice, STAR polish (all three), design-review story, questions for the panel, Zoom setup check. Rest early."],
 ];
