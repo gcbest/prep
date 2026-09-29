@@ -394,7 +394,7 @@ kbd {
 
 /* ---------- section chrome ---------- */
 .sec-head {
-  display: flex; align-items: baseline; gap: 1rem;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem;
   margin-bottom: 1.6rem;
 }
 .sec-no {
@@ -409,7 +409,7 @@ kbd {
   font-size: clamp(1.6rem, 3.4vw, 2.3rem);
   letter-spacing: -0.015em;
   color: var(--ink-strong);
-  white-space: nowrap;
+  white-space: normal;
 }
 .sec-rule {
   flex: 1; height: 1px;
@@ -1357,6 +1357,8 @@ section, details.fold { scroll-margin-top: 6.4rem; }
   .ref-grid.grid-2 { grid-template-columns: 1fr 1fr; }
   .firm-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; }
+  /* narrow cards: let long mono labels wrap instead of overflowing the card */
+  .ref-card td:first-child { white-space: normal; }
 }
 @media (max-width: 620px) {
   .statstrip { grid-template-columns: repeat(2, 1fr); }
