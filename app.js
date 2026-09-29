@@ -471,6 +471,14 @@
     }
   }
 
+  /* ---------------- deep links: a[data-track] selects a deck tab ---------------- */
+  document.querySelectorAll("a[data-track]").forEach((a) => {
+    a.addEventListener("click", () => {
+      const t = a.dataset.track;
+      if (TRACKS.some((x) => x.id === t)) selectTrack(t);
+    });
+  });
+
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener("click", () => {
       const id = a.getAttribute("href").slice(1);
