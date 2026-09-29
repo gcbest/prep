@@ -119,11 +119,6 @@
     mq.addEventListener("change", follow);
   }
 
-  /* ---------------- ticker ---------------- */
-  const tickerTrack = $("#tickerTrack");
-  const tickerHTML = TICKER.map((t) => `<span>${t}</span>`).join("");
-  tickerTrack.innerHTML = tickerHTML + tickerHTML; // seamless loop
-
   /* ---------------- tabs ---------------- */
   const tablist = $("#tablist");
   TRACKS.forEach((tr) => {
@@ -316,10 +311,10 @@
     const unknown = Object.keys(state.unknown).filter((id) => byId.has(id)).length;
     const pct = Math.round((known / total) * 100);
 
-    statCards.textContent = String(total).padStart(2, "0");
-    statKnown.textContent = String(known).padStart(2, "0");
-    statLeft.textContent = String(total - known).padStart(2, "0");
-    arcPct.textContent = `${pct}%`;
+    if (statCards) statCards.textContent = String(total).padStart(2, "0");
+    if (statKnown) statKnown.textContent = String(known).padStart(2, "0");
+    if (statLeft) statLeft.textContent = String(total - known).padStart(2, "0");
+    if (arcPct) arcPct.textContent = `${pct}%`;
 
     // azure = known, red = marked-unknown, rest = line
     arcFill.setAttribute("style", `stroke-dasharray: ${pct} 100`);
@@ -508,6 +503,19 @@
     navTargets.forEach((t) => spy.observe(t));
   }
 
+  /* ---------------- page tools: expand / collapse / focus ---------------- */
+  const allFolds = () => [...document.querySelectorAll("details")];
+  $("#expandAll")?.addEventListener("click", () => allFolds().forEach((d) => (d.open = true)));
+  $("#collapseAll")?.addEventListener("click", () => allFolds().forEach((d) => (d.open = false)));
+  const focusToggle = $("#focusToggle");
+  focusToggle?.addEventListener("click", () => {
+    const on = !document.body.classList.contains("focus-mode");
+    document.body.classList.toggle("focus-mode", on);
+    focusToggle.setAttribute("aria-pressed", String(on));
+    focusToggle.textContent = on ? "Exit focus" : "Focus mode";
+    if (on) $("#deck")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
   /* ---------------- sticky bars: topbar height drives the quick-nav offset ---------------- */
   const topbarEl = document.querySelector(".topbar");
   const setTopbarH = () => {
@@ -516,6 +524,12 @@
   setTopbarH();
   window.addEventListener("resize", setTopbarH);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(setTopbarH); // webfont can change header height
+
+  /* ---------------- one-line reminders (folded, last-hour reference) ---------------- */
+  const reminderChips = $("#reminderChips");
+  if (reminderChips) {
+    reminderChips.innerHTML = TICKER.map((t) => `<span class="chip chip-static">${t}</span>`).join("");
+  }
 
   /* ---------------- boot ---------------- */
   applyTheme(document.documentElement.dataset.theme || "dark");

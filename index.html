@@ -40,10 +40,6 @@
     </div>
   </header>
 
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track" id="tickerTrack"></div>
-  </div>
-
   <main id="top">
 
     <!-- ============ HERO ============ -->
@@ -64,9 +60,6 @@
           <div class="hero-cta">
             <a class="btn btn-primary" href="#deck">Start the deck</a>
             <a class="btn" href="#role">The role &amp; team</a>
-            <a class="btn" href="#react">React → Angular</a>
-            <a class="btn" href="#sysdesign">System design</a>
-            <a class="btn" href="#plan">Countdown</a>
           </div>
         </div>
         <div class="hero-arcwrap">
@@ -81,12 +74,11 @@
           </div>
         </div>
       </div>
-      <div class="statstrip" role="list" aria-label="Deck statistics">
-        <div role="listitem"><span class="stat-num" id="statCards">—</span><span class="stat-lab">cards</span></div>
-        <div role="listitem"><span class="stat-num">10</span><span class="stat-lab">tracks</span></div>
-        <div role="listitem"><span class="stat-num" id="statKnown">0</span><span class="stat-lab">known</span></div>
-        <div role="listitem"><span class="stat-num" id="statLeft">—</span><span class="stat-lab">to review</span></div>
-      </div>
+      <details class="fold fold-sub steps-fold">
+        <summary>
+          How to use this site — 3 steps
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
       <ol class="steps" aria-label="How to use this site">
         <li class="step">
           <span class="step-no mono">01</span>
@@ -110,12 +102,14 @@
           </div>
         </li>
       </ol>
+      </details>
     </section>
 
     <!-- ============ QUICK NAV ============ -->
     <nav class="qnav" id="qnav" aria-label="Jump to a section">
       <div class="qnav-inner shell">
         <span class="qnav-label mono">Jump to</span>
+        <div class="qnav-links">
         <a href="#deck">Drill deck</a>
         <a href="#react">React → Angular</a>
         <a href="#role">Role &amp; team</a>
@@ -125,6 +119,12 @@
         <a href="#reference">Quick ref</a>
         <a href="#firm">Citi intel</a>
         <a href="#sources">Sources</a>
+        </div>
+        <span class="qnav-tools">
+          <button class="chip" id="expandAll" type="button">Expand all</button>
+          <button class="chip" id="collapseAll" type="button">Collapse all</button>
+          <button class="chip" id="focusToggle" type="button" aria-pressed="false">Focus mode</button>
+        </span>
       </div>
     </nav>
 
@@ -230,6 +230,11 @@
         </div>
       </div>
 
+      <details class="fold fold-sub">
+        <summary>
+          The full concept map — 19 React → Angular equivalents
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
       <div class="xlate-wrap" role="region" aria-label="React to Angular concept map" tabindex="0">
         <table class="xlate">
           <caption class="visually-hidden">React concept, Angular equivalent, and the gotcha</caption>
@@ -257,8 +262,13 @@
           </tbody>
         </table>
       </div>
+      </details>
 
-      <p class="sub-head mono">Worked example · limit-breach monitor</p>
+      <details class="fold fold-sub">
+        <summary>
+          Worked example · limit-breach monitor, written both ways
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
 
       <div class="pair cols-2 codepair">
         <div class="pair-box">
@@ -390,8 +400,13 @@ export class BreachMonitor {
         (class, template, spec); the logic does not. Notice what disappeared: hand-rolled spinner state,
         the fetch call on the render path, and the memo comparison you had to reason about.
       </p>
+      </details>
 
-      <p class="sub-head mono">More real-world translations</p>
+      <details class="fold fold-sub">
+        <summary>
+          More real-world translations — context, guards, forms, performance, tests, hooks
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
 
       <div class="ref-grid">
         <div class="ref-card">
@@ -545,6 +560,7 @@ export class BreachApi {
           <p class="ref-foot"><strong>Business or data logic → service.</strong> <strong>DOM behaviour → directive:</strong> your <code>useDebouncedClick</code> becomes <code>&lt;button appDebounceClick&gt;</code> with <code>@HostListener</code> — and <code>@if</code>, <code>@for</code>, <code>ngClass</code>, <code>ngStyle</code> are directives you were hand-rolling as hooks.</p>
         </div>
       </div>
+      </details>
 
       <details class="fold fold-sub">
         <summary>
@@ -820,6 +836,11 @@ export class BreachApi {
       </header>
       <p class="star-lede">Candidate reports put <strong>more weight on system design at AVP/VP/SVP</strong> — expect a 45–60 minute whiteboard-style conversation over Zoom. Nobody is looking for one “correct” diagram; they're listening for <strong>requirements discipline, trade-offs you can articulate, and operational thinking</strong> in a regulated bank. Companion flashcards: <a href="#deck" data-track="sd">track 10 · System Design</a>.</p>
 
+      <details class="fold fold-sub">
+        <summary>
+          The method, the non-functional checklist, and how the round is judged
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
       <div class="ref-grid">
         <div class="ref-card">
           <h3>The 5-step method</h3>
@@ -866,6 +887,7 @@ export class BreachApi {
           <p class="ref-foot">Distilled from candidate reports — coaching, not a scoring rubric.</p>
         </div>
       </div>
+      </details>
 
       <details class="fold fold-sub">
         <summary>
@@ -1110,6 +1132,10 @@ export class BreachApi {
             <li>Name the a11y pattern before the pixels.</li>
           </ul>
         </div>
+        <div class="ref-card firm-wide">
+          <h3>One-line reminders</h3>
+          <div class="chip-row" id="reminderChips"></div>
+        </div>
       </div>
     </details>
 
@@ -1328,8 +1354,6 @@ export class BreachApi {
     </footer>
 
   </main>
-
-  <div class="grain" aria-hidden="true"></div>
 
   <script src="data.js"></script>
   <script src="app.js"></script>
