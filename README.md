@@ -10,9 +10,17 @@ TeamCity/uDeploy/Jenkins, Micro Frontends, Docker), **risk domain** (stress test
 CCAR, BCBS 239, VaR/ES, limit monitoring), and the systems-analysis + leadership
 material a senior hire is probed on — 72 flashcards across 9 tracks.
 
-The page is organized as a guided flow: drill deck → role & team brief → 7-day
-countdown → STAR stories, with the last-hour reference, Citi intel, and sources
+The page is organized as a guided flow: drill deck → **React → Angular translation** → role &
+team brief → 7-day countdown → STAR stories, with the last-hour reference, Citi intel, and sources
 colapsed behind one-tap folds so nothing overwhelms.
+
+The **React → Angular** section (02) teaches the mental conversion for React developers joining an
+Angular shop: a JSX→template crib sheet, a 19-row concept map (`useState` → `signal()`,
+`useEffect` → `effect()`/`takeUntilDestroyed()`, `key` → `track`, React Router → guards), a
+limit-breach monitor written in both frameworks side by side, six more real-world translations
+(context→service, private routes→guards, controlled forms→reactive forms, `React.memo`→OnPush,
+RTL→TestBed, custom hooks→services/directives), plus a week-1 gotchas list and a ten-step
+conversion checklist folded away at the end.
 
 ## Run locally
 

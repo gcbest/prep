@@ -64,6 +64,7 @@
           <div class="hero-cta">
             <a class="btn btn-primary" href="#deck">Start the deck</a>
             <a class="btn" href="#role">The role &amp; team</a>
+            <a class="btn" href="#react">React → Angular</a>
             <a class="btn" href="#plan">Countdown</a>
           </div>
         </div>
@@ -115,6 +116,7 @@
       <div class="qnav-inner shell">
         <span class="qnav-label mono">Jump to</span>
         <a href="#deck">Drill deck</a>
+        <a href="#react">React → Angular</a>
         <a href="#role">Role &amp; team</a>
         <a href="#plan">Countdown</a>
         <a href="#star">STAR</a>
@@ -173,10 +175,429 @@
       <p class="visually-hidden" role="status" id="liveStatus"></p>
     </section>
 
+    <!-- ============ REACT → ANGULAR ============ -->
+    <section class="react-sec shell" id="react" aria-labelledby="reactTitle">
+      <header class="sec-head">
+        <span class="sec-no mono">02</span>
+        <h2 id="reactTitle">React → Angular</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+        <span class="sec-note mono">transfer your React muscle memory</span>
+      </header>
+
+      <p class="react-lede">
+        If the panel asks “you've been a React shop — how fast do you come up to speed on Angular?”,
+        this section is your answer. React taught you composition, lifted state, controlled inputs,
+        cancellation, memoization and test discipline. Angular renames almost all of it — and adds
+        two things React leaves to the ecosystem: <strong>dependency injection</strong> and a
+        <strong>router with guards built in</strong>. Below: the crib sheet, then one real feature —
+        a <strong>limit-breach monitor</strong>, the kind of screen ERT ships — written both ways,
+        then the traps that catch React developers in code review.
+      </p>
+
+      <div class="ref-grid grid-2">
+        <div class="ref-card">
+          <h3>The mental shift</h3>
+          <ul>
+            <li><strong>UI = f(state) still holds.</strong> React re-runs the function and diffs the result; Angular diffs the template against its last value — you rarely re-render, you update a value.</li>
+            <li><strong>State lives in signals.</strong> <code>signal()</code> is <code>useState</code> with a getter; <code>computed()</code> is <code>useMemo</code> without a dependency array, because reads are tracked for you.</li>
+            <li><strong>Immutability still matters.</strong> With <code>OnPush</code> — Angular's <code>React.memo</code> — mutating an array in place means a silent no-update. Same bug, new framework.</li>
+            <li><strong>Hooks rules → injection-context rules.</strong> You may not call <code>useState</code> inside a condition; you may not call <code>inject()</code> outside a constructor, field initializer or factory.</li>
+            <li><strong>Effects are not the same effect.</strong> React's <code>useEffect</code> runs after paint on every dependency change; Angular's <code>effect()</code> runs after change detection and re-runs only when the signals it read change.</li>
+            <li><strong>Composition maps one-to-one.</strong> Props → <code>input()</code>, children → <code>&lt;ng-content&gt;</code>, callbacks → <code>output()</code>, custom hooks → services or directives.</li>
+          </ul>
+          <p class="ref-foot">Panel line: “I'd keep the React mental model — derived state, cancellation, stable keys — and re-express it as signals, OnPush and <code>switchMap</code>.”</p>
+        </div>
+
+        <div class="ref-card">
+          <h3>JSX → template, the crib sheet</h3>
+          <table class="crib">
+            <thead><tr><th>JSX</th><th>Angular template</th></tr></thead>
+            <tbody>
+              <tr><td>&lt;span className="x"&gt;{q}&lt;/span&gt;</td><td>&lt;span class="x"&gt;{{ q() }}&lt;/span&gt;</td></tr>
+              <tr><td>{ok &amp;&amp; &lt;Badge /&gt;}</td><td>@if (ok()) { &lt;app-badge /&gt; }</td></tr>
+              <tr><td>{ok ? &lt;A /&gt; : &lt;B /&gt;}</td><td>@if (ok()) { … } @else { … }</td></tr>
+              <tr><td>{rows.map(r =&gt; &lt;Row key={r.id} row={r} /&gt;)}</td><td>@for (r of rows(); track r.id) { &lt;app-row [row]="r" /&gt; }</td></tr>
+              <tr><td>&lt;Panel title={t} onOpen={open} /&gt;</td><td>&lt;app-panel [title]="t" (open)="open($event)" /&gt;</td></tr>
+              <tr><td>&lt;input value={q} onChange={e =&gt; setQ(e.target.value)} /&gt;</td><td>&lt;input [value]="q()" (input)="q.set($any($event.target).value)" /&gt;</td></tr>
+              <tr><td>&lt;div style={{ width: pct }}&gt;</td><td>&lt;div [style.width.%]="pct()"&gt;</td></tr>
+              <tr><td>{children}</td><td>&lt;ng-content select="[banner]" /&gt;</td></tr>
+              <tr><td>&lt;&gt;…&lt;/&gt;</td><td>&lt;ng-container&gt;…&lt;/ng-container&gt;</td></tr>
+            </tbody>
+          </table>
+          <p class="ref-foot">Angular templates are <em>HTML first</em>: no arbitrary JS, no <code>&amp;&amp;</code> rendering — that branching is <code>@if</code>, and the template type-checker reads it.</p>
+        </div>
+      </div>
+
+      <div class="xlate-wrap" role="region" aria-label="React to Angular concept map" tabindex="0">
+        <table class="xlate">
+          <caption class="visually-hidden">React concept, Angular equivalent, and the gotcha</caption>
+          <thead><tr><th>React</th><th>Angular 16+</th><th>The gotcha</th></tr></thead>
+          <tbody>
+            <tr><td>useState</td><td>signal() / model()</td><td>Read it as a function: <code>rows()</code>, never <code>rows</code>. <code>model()</code> is the two-way one, for form fields.</td></tr>
+            <tr><td>useMemo</td><td>computed()</td><td>No dependency array to forget — but it must stay pure. No fetching inside it (the rule you already follow).</td></tr>
+            <tr><td>useReducer / Redux / Zustand</td><td>injectable({ providedIn: 'root' }) service + signals</td><td>Keep reducers as pure functions; there is no action log, so name your mutators (<code>acknowledge()</code>, not <code>setState()</code>).</td></tr>
+            <tr><td>useEffect(fn, [a, b])</td><td>effect() · constructor + takeUntilDestroyed()</td><td>A fetching effect belongs in a service or an <code>effect()</code> with <code>onCleanup()</code> — never fire-and-forget from the template.</td></tr>
+            <tr><td>AbortController / cleanup return</td><td>switchMap · takeUntilDestroyed()</td><td>Unsubscribing <em>is</em> aborting. A leaked subscription survives navigation — that's your memory-leak ticket.</td></tr>
+            <tr><td>useRef (for data)</td><td>signal()</td><td>The mutable-box ref is an anti-pattern in Angular too. <code>viewChild()</code> / <code>afterNextRender()</code> are for DOM only.</td></tr>
+            <tr><td>useContext / provider tree</td><td>inject(Service) — the DI graph</td><td><code>providedIn: 'root'</code> ≈ app singleton; a route's <code>providers: []</code> ≈ a provider above a subtree (fresh instance per route).</td></tr>
+            <tr><td>props</td><td>input() / input.required&lt;T&gt;()</td><td>Inputs are signals — readable in class and template. Never destructure them (same reason you don't destructure props in React).</td></tr>
+            <tr><td>callback prop (onOpen)</td><td>output&lt;T&gt;()</td><td>Wired as <code>(open)="handler($event)"</code>. One-way down, one-way up — identical discipline.</td></tr>
+            <tr><td>children / composition</td><td>&lt;ng-content select="…"&gt;</td><td>Projection is resolved per content slot; dynamic siblings go inside <code>@if</code>, not around the projection.</td></tr>
+            <tr><td>React Router: loader + element</td><td>Routes + provideRouter + resolver + loadComponent</td><td><code>loadComponent</code> = <code>React.lazy</code>; a loader = a resolver; a private-route wrapper = a guard.</td></tr>
+            <tr><td>&lt;Navigate to=… replace /&gt;</td><td>return router.createUrlTree([...])</td><td>Guards return a <strong>UrlTree</strong>, not a boolean — the return-to query param then costs one line.</td></tr>
+            <tr><td>controlled inputs (useState per field)</td><td>ReactiveFormsModule: FormGroup / FormControl</td><td><code>[(ngModel)]</code> maps closest to JSX — but reactive scales to a 40-field trade ticket with cross-field rules.</td></tr>
+            <tr><td>key={r.id}</td><td>@for (… track r.id)</td><td>Track a stable id, never <code>$index</code> — the exact bug you know as <code>key={index}</code>.</td></tr>
+            <tr><td>React.memo / useMemo</td><td>OnPush + computed()</td><td>OnPush re-runs only on a new <strong>input ref</strong>, an <strong>event</strong>, a <strong>signal read</strong> or the <strong>async pipe</strong>.</td></tr>
+            <tr><td>Error boundary</td><td>error state in the template + ErrorHandler</td><td>Angular has no subtree boundary; model <code>error</code> beside <code>loading</code> — honestly, what you did in React too.</td></tr>
+            <tr><td>Suspense + lazy()</td><td>@defer (on viewport) + @placeholder/@loading</td><td>The placeholder is emitted at build time, so the lazy chunk never enters the initial bundle.</td></tr>
+            <tr><td>Portal / popover packages</td><td>Angular CDK Overlay</td><td>Focus trap, backdrop, scroll blocking and ARIA ship with it — no extra package to license and audit.</td></tr>
+            <tr><td>React Testing Library</td><td>TestBed + Jasmine/Karma</td><td><code>HttpTestingController.expectOne()</code> fails on a double fetch — it catches the classic React effect bug by default.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="sub-head mono">Worked example · limit-breach monitor</p>
+
+      <div class="pair cols-2 codepair">
+        <div class="pair-box">
+          <div class="pair-head"><span class="lang-react">React</span><span>BreachMonitor.jsx</span></div>
+          <pre><code>import { useEffect, useMemo, useState } from "react";
+import { fetchBreaches } from "./api";
+
+export function BreachMonitor({ deskId, onOpen }) {
+  const [query, setQuery] = useState("");
+  const [attempt, setAttempt] = useState(0);
+  const [rows, setRows] = useState([]);
+  const [status, setStatus] = useState("loading");
+
+  useEffect(() =&gt; {
+    const ctrl = new AbortController();     // cancellation
+    setStatus("loading");
+    fetchBreaches(deskId, query, { signal: ctrl.signal })
+      .then((data) =&gt; { setRows(data); setStatus("ready"); })
+      .catch((e) =&gt; e.name !== "AbortError" &amp;&amp; setStatus("error"));
+    return () =&gt; ctrl.abort();              // cleanup
+  }, [deskId, query, attempt]);
+
+  const sorted = useMemo(                   // derived state
+    () =&gt; [...rows].sort((a, b) =&gt; b.util - a.util),
+    [rows]
+  );
+
+  if (status === "loading") return &lt;Spinner /&gt;;
+  if (status === "error")
+    return &lt;ErrorState onRetry={() =&gt; setAttempt((a) =&gt; a + 1)} /&gt;;
+
+  return (
+    &lt;table&gt;
+      &lt;tbody&gt;
+        {sorted.map((r) =&gt; (
+          &lt;tr key={r.id} onClick={() =&gt; onOpen(r.id)}&gt;
+            &lt;td&gt;{r.limitName}&lt;/td&gt;
+            &lt;td&gt;{r.util}%&lt;/td&gt;
+          &lt;/tr&gt;
+        ))}
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  );
+}</code></pre>
+        </div>
+
+        <div class="pair-stack">
+          <div class="pair-box">
+            <div class="pair-head"><span class="lang-ng">Angular</span><span>breach-monitor.component.ts</span></div>
+            <pre><code>@Component({
+  selector: "app-breach-monitor",
+  imports: [DecimalPipe],
+  templateUrl: "./breach-monitor.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class BreachMonitor {
+  deskId = input.required&lt;string&gt;();   // props → input()
+  open   = output&lt;string&gt;();           // onOpen → output()
+
+  query   = signal("");                // useState → signal()
+  attempt = signal(0);
+  rows    = signal&lt;Breach[]&gt;([]);
+  status  = signal&lt;"loading" | "ready" | "error"&gt;("loading");
+
+  sorted = computed(() =&gt;              // useMemo — deps tracked
+    [...this.rows()].sort((a, b) =&gt; b.util - a.util)
+  );
+
+  private api = inject(BreachApi);     // context → DI
+
+  constructor() {
+    toObservable(computed(() =&gt; ({ desk: this.deskId(),
+                                   q: this.query(),
+                                   n: this.attempt() })))
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged((a, b) =&gt; a.desk === b.desk &amp;&amp;
+                                       a.q === b.q &amp;&amp; a.n === b.n),
+        tap(() =&gt; this.status.set("loading")),
+        // switchMap cancels the in-flight call — this IS AbortController
+        switchMap(({ desk, q }) =&gt;
+          this.api.breaches(desk, q).pipe(
+            map((rows) =&gt; ({ ok: true, rows })),
+            catchError(() =&gt; of({ ok: false, rows: [] }))
+          )
+        ),
+        takeUntilDestroyed()           // the cleanup function
+      )
+      .subscribe(({ ok, rows }) =&gt; {
+        this.rows.set(rows);
+        this.status.set(ok ? "ready" : "error");
+      });
+  }
+
+  retry() { this.attempt.update((n) =&gt; n + 1); }
+}</code></pre>
+          </div>
+
+          <div class="pair-box">
+            <div class="pair-head"><span class="lang-ng">Angular</span><span>breach-monitor.component.html</span></div>
+            <pre><code>@if (status() === "loading") {
+  &lt;app-spinner /&gt;
+} @else if (status() === "error") {
+  &lt;app-error-state (retry)="retry()" /&gt;
+} @else {
+  &lt;table&gt;
+    &lt;caption&gt;Limit breaches — {{ deskId() }}&lt;/caption&gt;
+    &lt;tbody&gt;
+      @for (r of sorted(); track r.id) {
+        &lt;tr (click)="open.emit(r.id)"&gt;
+          &lt;td&gt;{{ r.limitName }}&lt;/td&gt;
+          &lt;td&gt;{{ r.util }}%&lt;/td&gt;
+        &lt;/tr&gt;
+      } @empty {
+        &lt;tr&gt;&lt;td colspan="2"&gt;No breaches for this desk.&lt;/td&gt;&lt;/tr&gt;
+      }
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <p class="code-cap">
+        Read it as a translation, not a rewrite: <strong>useState → signal</strong>,
+        <strong>useMemo → computed</strong>, <strong>dependency array → signal reads</strong>,
+        <strong>AbortController → switchMap</strong>, <strong>cleanup → takeUntilDestroyed</strong>,
+        <strong>key → track</strong>, <strong>early returns → @if / @else</strong>. The file count grows
+        (class, template, spec); the logic does not. Notice what disappeared: hand-rolled spinner state,
+        the fetch call on the render path, and the memo comparison you had to reason about.
+      </p>
+
+      <p class="sub-head mono">More real-world translations</p>
+
+      <div class="ref-grid">
+        <div class="ref-card">
+          <h3>Context &amp; global store → root service</h3>
+          <div class="pair">
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-react">React</span><span>DeskContext.jsx</span></div>
+              <pre><code>const DeskContext = createContext();
+const desks = useDeskStore((s) =&gt; s.desks);
+&lt;Provider store={store}&gt;…&lt;/Provider&gt;</code></pre>
+            </div>
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-ng">Angular</span><span>desk.store.ts</span></div>
+              <pre><code>@Injectable({ providedIn: "root" })
+export class DeskStore {
+  private http = inject(HttpClient);
+  desks = signal&lt;Desk[]&gt;([]);
+  selected = signal&lt;string | null&gt;(null);
+}
+// any component, any depth:
+private store = inject(DeskStore);</code></pre>
+            </div>
+          </div>
+          <p class="ref-foot">No provider tree, no wrapper component, no context name. Per-route state uses the route's own <code>providers: []</code> — the “fresh store above this subtree” trick, done by the router.</p>
+        </div>
+
+        <div class="ref-card">
+          <h3>Private route → guard function</h3>
+          <div class="pair">
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-react">React</span><span>App.jsx</span></div>
+              <pre><code>&lt;Route path="/limits"
+  element={&lt;RequireAuth&gt;
+             &lt;LimitsPage /&gt;
+           &lt;/RequireAuth&gt;} /&gt;
+
+function RequireAuth({ children }) {
+  if (!useUser()) return &lt;Navigate to="/login" replace /&gt;;
+  return children;
+}</code></pre>
+            </div>
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-ng">Angular</span><span>limits.routes.ts</span></div>
+              <pre><code>export const limitsRoutes = [{
+  path: "limits",
+  canActivate: [authGuard],
+  loadComponent: () =&gt; import("./limits.page")
+                      .then((m) =&gt; m.LimitsPage),
+}];
+
+export const authGuard: CanActivateFn = (route, state) =&gt; {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+  return auth.user()
+    ? true
+    : router.createUrlTree(["/login"],
+        { queryParams: { returnTo: state.url } });
+};</code></pre>
+            </div>
+          </div>
+          <p class="ref-foot">Guards run <em>before</em> the component exists — a loader before render. Add <code>canMatch</code> so a logged-out user never even downloads the lazy chunk.</p>
+        </div>
+
+        <div class="ref-card">
+          <h3>Controlled form → reactive form</h3>
+          <div class="pair">
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-react">React</span><span>TicketForm.jsx</span></div>
+              <pre><code>const [f, setF] = useState({ notional: "", ccy: "USD" });
+const bad = f.valueDate &lt; today();
+&lt;input value={f.notional}
+  onChange={(e) =&gt; setF({ ...f, notional: e.target.value })} /&gt;</code></pre>
+            </div>
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-ng">Angular</span><span>ticket-form.ts</span></div>
+              <pre><code>form = inject(FormBuilder).nonNullable.group({
+  notional:  [0, [Validators.required, Validators.min(1)]],
+  ccy:       ["USD", Validators.required],
+  valueDate: [today(), Validators.required],
+}, { validators: dateNotInPast });   // cross-field rule
+
+this.form.statusChanges.pipe(distinctUntilChanged())…</code></pre>
+            </div>
+          </div>
+          <p class="ref-foot">One object per keystroke, one setter per field, validation re-derived by hand — the part you were tired of. <code>statusChanges</code>, <code>disable()/enable()</code> and cross-field validators replace the branching you used to write.</p>
+        </div>
+
+        <div class="ref-card">
+          <h3>Rendering 500 breaches: memo → OnPush</h3>
+          <ul>
+            <li><strong><code>React.memo</code> → <code>OnPush</code></strong>, on every component. The strategy is per component, so set it once in the CLI defaults and never think about it again.</li>
+            <li><strong>Pass data, don't mutate it.</strong> An input must receive a <em>new reference</em> to change: <code>this.rows.set(rows)</code>, <code>.map()</code>, spread — the React rule, verbatim.</li>
+            <li><strong><code>key</code> → <code>track</code>.</strong> Track the breach id. <code>track $index</code> rebuilds rows on sort — you'll see it as flicker and lost focus.</li>
+            <li><strong>Heavy widgets:</strong> <code>@defer (on viewport)</code> for the chart panel; CDK virtual scroll for 10k rows instead of <code>react-window</code>.</li>
+            <li><strong>Derived values:</strong> <code>computed()</code> on the class, never a method in the template — a method call re-evaluates on every change-detection pass.</li>
+            <li><strong>CSS:</strong> component styles are encapsulated by default; <code>:host</code> ≈ a styled-component's root, and Bootstrap still leaks in like a global stylesheet.</li>
+          </ul>
+          <p class="ref-foot">Profile in Angular DevTools: if the flame graph doesn't move when you type, your state never changed reference.</p>
+        </div>
+
+        <div class="ref-card">
+          <h3>RTL test → TestBed spec</h3>
+          <div class="pair">
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-react">React</span><span>breach.test.jsx</span></div>
+              <pre><code>render(&lt;BreachMonitor deskId="RATES" /&gt;);
+await userEvent.type(screen.getByLabelText(/search/i), "vr");
+await waitFor(() =&gt;
+  expect(fetchMock).toHaveBeenCalledTimes(1));</code></pre>
+            </div>
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-ng">Angular</span><span>breach.component.spec.ts</span></div>
+              <pre><code>it("fetches once per debounced query", fakeAsync(() =&gt; {
+  fixture.componentRef.setInput("deskId", "RATES");
+  fixture.detectChanges();
+  http.expectOne("/api/limits/breaches?desk=RATES");
+  tick(300);
+  http.flush([{ id: 1, util: 104 }]);
+  fixture.detectChanges();
+  expect(el.textContent).toContain("104%");
+}));</code></pre>
+            </div>
+          </div>
+          <p class="ref-foot"><code>TestBed</code> = render + providers · <code>expectOne</code> = the assertion you wished <code>waitFor</code> gave you · <code>fakeAsync/tick</code> = fake timers · <code>whenStable()</code> = <code>waitFor</code>. Karma runs a real browser, so CSS, a11y and layout assertions are honest; Cypress stays the end-to-end layer either way.</p>
+        </div>
+
+        <div class="ref-card">
+          <h3>Custom hook → service or directive</h3>
+          <p class="hook-p">Ask what the hook <em>owns</em> — that decides where it goes.</p>
+          <div class="pair">
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-react">React</span><span>useBreaches.js</span></div>
+              <pre><code>function useBreaches(deskId) {
+  const [rows, setRows] = useState([]);
+  useEffect(() =&gt; { … }, [deskId]);
+  return { rows, refresh };
+}</code></pre>
+            </div>
+            <div class="pair-box">
+              <div class="pair-head"><span class="lang-ng">Angular</span><span>breach.api.ts</span></div>
+              <pre><code>@Injectable({ providedIn: "root" })
+export class BreachApi {
+  private http = inject(HttpClient);
+  breaches(desk: string) {
+    return this.http.get&lt;Breach[]&gt;("/api/limits/breaches",
+      { params: { desk } });
+  }
+}</code></pre>
+            </div>
+          </div>
+          <p class="ref-foot"><strong>Business or data logic → service.</strong> <strong>DOM behaviour → directive:</strong> your <code>useDebouncedClick</code> becomes <code>&lt;button appDebounceClick&gt;</code> with <code>@HostListener</code> — and <code>@if</code>, <code>@for</code>, <code>ngClass</code>, <code>ngStyle</code> are directives you were hand-rolling as hooks.</p>
+        </div>
+      </div>
+
+      <details class="fold fold-sub">
+        <summary>
+          Gotchas, the conversion checklist, and an honest scorecard
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
+        <div class="ref-grid">
+          <div class="ref-card">
+            <h3>Where React devs get burned (week 1)</h3>
+            <ol>
+              <li><strong>Missing <code>()</code>.</strong> <code>{{ rows }}</code> prints a function or a stale object. Signals are called.</li>
+              <li><strong>Mutating, then expecting a repaint.</strong> OnPush + <code>push()</code> in place = nothing happens. New array, new ref.</li>
+              <li><strong>Method calls in the template.</strong> <code>{{ total() }}</code> is cheap; <code>{{ computeTotal() }}</code> runs on every change-detection pass. Make it a <code>computed()</code>.</li>
+              <li><strong>Observables without cleanup.</strong> <code>http.get().subscribe()</code> inside a component outlives navigation until you add <code>takeUntilDestroyed()</code>.</li>
+              <li><strong>Cold observables.</strong> The same <code>http.get()</code> subscribed twice = two HTTP calls. Put the request in one place: a service method or one effect.</li>
+              <li><strong><code>(input)</code> vs <code>(change)</code>.</strong> One fires per keystroke, one on blur — the React <code>onChange</code> subtlety, relocated.</li>
+              <li><strong>Forgetting OnPush on a new component.</strong> Default change detection hides your stale-render bugs until production.</li>
+              <li><strong>Styles.</strong> Your component CSS stops at the component boundary; Bootstrap keeps leaking in. Audit class names the way you audited CSS modules.</li>
+            </ol>
+          </div>
+
+          <div class="ref-card">
+            <h3>Convert a React file in ten moves</h3>
+            <ol>
+              <li><code>ng g c breach-monitor --standalone --change-detection OnPush</code>.</li>
+              <li>Paste the JSX return into <code>.html</code>: <code>className</code> → <code>class</code>, <code>{x}</code> → <code>{{ x() }}</code>, handlers → <code>(evt)="…"</code>, expressions → <code>[prop]="…"</code>.</li>
+              <li>Each <code>useState</code> → a <code>signal()</code> field with the same initial value; <code>setX</code> → <code>x.set()</code> / <code>x.update()</code>.</li>
+              <li><code>useMemo</code> → <code>computed()</code>. Data <code>useRef</code> → another signal. DOM ref → <code>viewChild()</code>.</li>
+              <li>Classify every <code>useEffect</code>: one-shot init → <code>ngOnInit</code>; signal-driven side effect → <code>effect()</code>; async with deps → a stream in the constructor closed by <code>takeUntilDestroyed()</code>.</li>
+              <li>Props → <code>input()</code> / <code>input.required()</code>; callbacks → <code>output()</code>; children → <code>&lt;ng-content&gt;</code>; default props → the input's default value.</li>
+              <li>Context/Redux → a <code>providedIn: 'root'</code> service; every <code>useContext(X)</code> becomes a <code>private x = inject(X)</code> field.</li>
+              <li>Move fetch/WebSocket code into an injectable service so <code>HttpTestingController</code> can see it.</li>
+              <li><code>key</code> → <code>track</code> (stable id), <code>React.memo</code> → OnPush, <code>Suspense</code> → <code>@defer</code>.</li>
+              <li>Port the test: RTL queries → <code>By.css</code>/<code>By.role</code>, <code>waitFor</code> → <code>whenStable()</code> or <code>fakeAsync/tick()</code>; then run Karma and Cypress.</li>
+            </ol>
+          </div>
+
+          <div class="ref-card">
+            <h3>Honest scorecard — say it out loud</h3>
+            <table>
+              <tr><td>React wins</td><td>Ecosystem breadth, hiring pool, server components, the smallest possible mental model for one screen.</td></tr>
+              <tr><td>Angular wins</td><td>DI, typed forms, guards &amp; resolvers, structure that survives a 40-person team, template type-checking, RxJS cancellation, CDK a11y primitives.</td></tr>
+              <tr><td>In a regulated bank</td><td>Router, forms and the test runner ship in the framework — fewer third-party libraries to license, audit and patch.</td></tr>
+              <tr><td>Micro frontends</td><td>Module Federation is first-party in both; Angular's build enforces the boundaries ERT's team split needs.</td></tr>
+            </table>
+            <p class="ref-foot">“With React I'd hand-pick a router, a form library, a state library and a fetch layer — four separate supply-chain and upgrade decisions. For a risk platform I'd take Angular's opinionated defaults.”</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
     <!-- ============ ROLE & TEAM ============ -->
     <section class="ref-sec shell" id="role" aria-labelledby="roleTitle">
       <header class="sec-head">
-        <span class="sec-no mono">02</span>
+        <span class="sec-no mono">03</span>
         <h2 id="roleTitle">The role &amp; the team</h2>
         <span class="sec-rule" aria-hidden="true"></span>
         <span class="sec-note mono">job description + team research</span>
@@ -287,7 +708,7 @@
     <!-- ============ PLAN ============ -->
     <section class="plan-sec shell" id="plan" aria-labelledby="planTitle">
       <header class="sec-head">
-        <span class="sec-no mono">03</span>
+        <span class="sec-no mono">04</span>
         <h2 id="planTitle">The 7-day countdown</h2>
         <span class="sec-rule" aria-hidden="true"></span>
       </header>
@@ -305,7 +726,7 @@
     <!-- ============ STAR ============ -->
     <section class="star-sec shell" id="star" aria-labelledby="starTitle">
       <header class="sec-head">
-        <span class="sec-no mono">04</span>
+        <span class="sec-no mono">05</span>
         <h2 id="starTitle">Your STAR stories</h2>
         <span class="sec-rule" aria-hidden="true"></span>
       </header>
@@ -332,7 +753,7 @@
     <!-- ============ REFERENCE (folded) ============ -->
     <details class="fold ref-sec shell" id="reference">
       <summary class="sec-head">
-        <span class="sec-no mono">05</span>
+        <span class="sec-no mono">06</span>
         <h2>Last-hour reference</h2>
         <span class="sec-rule" aria-hidden="true"></span>
         <span class="sec-note mono">8 cheat sheets · opens on tap</span>
@@ -422,7 +843,7 @@
     <!-- ============ KNOW THE FIRM ============ -->
     <section class="firm-sec shell" id="firm" aria-labelledby="firmTitle">
       <header class="sec-head">
-        <span class="sec-no mono">06</span>
+        <span class="sec-no mono">07</span>
         <h2 id="firmTitle">Know the firm</h2>
         <span class="sec-rule" aria-hidden="true"></span>
         <span class="sec-note mono">verified · sep 2026</span>
@@ -550,7 +971,7 @@
     <!-- ============ SOURCES (folded) ============ -->
     <details class="fold src-sec shell" id="sources">
       <summary class="sec-head">
-        <span class="sec-no mono">07</span>
+        <span class="sec-no mono">08</span>
         <h2>Sources &amp; further reading</h2>
         <span class="sec-rule" aria-hidden="true"></span>
         <span class="sec-note mono">verified links · opens on tap</span>

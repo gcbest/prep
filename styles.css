@@ -521,7 +521,7 @@ details.fold > summary:hover .fold-ico { color: var(--ink); border-color: var(--
 
 section, details.fold { scroll-margin-top: 6.4rem; }
 .deck-sec { padding-top: clamp(2.6rem, 6vw, 4rem); }
-.plan-sec, .star-sec, .ref-sec { padding-top: clamp(3rem, 7vw, 5rem); }
+.plan-sec, .star-sec, .ref-sec, .react-sec { padding-top: clamp(3rem, 7vw, 5rem); }
 
 /* ---------- tabs ---------- */
 .tabs {
@@ -1166,12 +1166,189 @@ section, details.fold { scroll-margin-top: 6.4rem; }
   color: color-mix(in srgb, var(--muted) 75%, transparent);
 }
 
+/* ---------- react → angular translation ---------- */
+.react-lede {
+  max-width: 46rem;
+  margin-bottom: 1.6rem;
+  color: var(--muted);
+  font-size: 1.01rem;
+}
+.react-lede strong { color: var(--ink); font-weight: 600; }
+
+.ref-grid.grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+.sub-head {
+  margin-top: clamp(2rem, 5vw, 2.8rem);
+  margin-bottom: 0.9rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.hook-p {
+  margin-bottom: 0.9rem;
+  font-size: 0.86em;
+  color: var(--muted);
+}
+
+/* JSX ↔ template crib sheet */
+.ref-card .crib { font-size: 0.8em; }
+.crib thead th {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: left;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--line);
+  color: var(--red);
+}
+.crib thead th:last-child { color: var(--azure); }
+.crib td {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  padding: 0.4em 0.7em 0.4em 0;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+  word-break: break-word;
+}
+.ref-card .crib td:first-child { white-space: normal; color: var(--muted); font-size: 0.76rem; padding-right: 0.7em; }
+.crib td:last-child { color: var(--ink); }
+.crib tr:last-child td { border-bottom: 0; }
+
+/* full-width concept map */
+.xlate-wrap {
+  margin-top: 1.7rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-2) 78%, transparent);
+  overflow-x: auto;
+}
+.xlate {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  font-size: 0.86em;
+}
+.xlate thead th {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.75em 0.9em;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+}
+.xlate thead th:nth-child(1) { color: var(--red); }
+.xlate thead th:nth-child(2) { color: var(--azure); }
+.xlate td {
+  padding: 0.55em 0.9em;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.xlate tbody tr:last-child td { border-bottom: 0; }
+.xlate tbody tr:hover td { background: color-mix(in srgb, var(--azure) 7%, transparent); }
+.xlate td:nth-child(1) {
+  width: 21%;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.84em;
+  color: var(--ink-strong);
+}
+.xlate td:nth-child(2) {
+  width: 26%;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.84em;
+  color: var(--azure);
+}
+.xlate code {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.9em;
+  color: var(--ink);
+  background: var(--code-bg);
+  padding: 0.08em 0.35em;
+  border-radius: 3px;
+}
+.xlate strong { color: var(--ink); font-weight: 600; }
+.xlate em { color: var(--ink); }
+
+/* side-by-side code */
+.pair { display: grid; gap: 0.9rem; }
+@media (min-width: 760px) {
+  .pair.cols-2 { grid-template-columns: 1fr 1fr; }
+}
+.pair-stack { display: grid; gap: 0.9rem; align-content: start; }
+.pair-box {
+  border: 1px solid var(--line);
+  background: var(--code-bg);
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 0;
+}
+.pair-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 55%, var(--code-bg));
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pair-head span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lang-react { color: var(--red); font-weight: 600; flex-shrink: 0; }
+.lang-ng { color: var(--azure); font-weight: 600; flex-shrink: 0; }
+.pair-box pre {
+  margin: 0;
+  padding: 0.8rem 0.85rem;
+  overflow-x: auto;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  tab-size: 2;
+  color: var(--ink);
+}
+.pair-box code { font: inherit; color: inherit; background: none; padding: 0; }
+.pair-box pre::-webkit-scrollbar { height: 7px; }
+.pair-box pre::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+.pair-box pre::-webkit-scrollbar-track { background: transparent; }
+/* narrow cards: wrap instead of hiding code behind a scroll */
+.ref-card .pair-box pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.codecap, .code-cap {
+  max-width: 82ch;
+  margin-top: 1.1rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--azure);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.code-cap strong { color: var(--ink); font-weight: 600; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; align-items: start; }
   .hero-arcwrap { max-width: 380px; }
   .plan-grid { grid-template-columns: 1fr; }
   .star-grid, .ref-grid { grid-template-columns: 1fr 1fr; }
+  .ref-grid.grid-2 { grid-template-columns: 1fr 1fr; }
   .firm-grid { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; }
 }
@@ -1181,6 +1358,7 @@ section, details.fold { scroll-margin-top: 6.4rem; }
   .statstrip > div:nth-child(odd) { border-left: 0; padding-left: 0; }
   .statstrip > div:nth-child(n+3) { border-top: 1px solid var(--line); }
   .star-grid, .ref-grid { grid-template-columns: 1fr; }
+  .ref-grid.grid-2 { grid-template-columns: 1fr; }
   .gloss-grid { grid-template-columns: 1fr; }
   .firm-card dl div { grid-template-columns: 78px 1fr; gap: 0.6rem; }
   .biz-row { grid-template-columns: 1fr; gap: 0.3rem; }
