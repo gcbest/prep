@@ -15,6 +15,7 @@ const TRACKS = [
   { id: "ops",   num: "07", label: "DevOps · MFE · Agile" },
   { id: "risk",  num: "08", label: "Risk Domain · ERT" },
   { id: "lead",  num: "09", label: "Leadership · Behavioral" },
+  { id: "sd",    num: "10", label: "System Design" },
 ];
 
 const QUESTIONS = [
@@ -871,6 +872,111 @@ const QUESTIONS = [
       "Panel logistics: confirm next steps at the end — Zoom panels often end abruptly",
     ]
   },
+
+  /* ---------------- 10 · SYSTEM DESIGN ---------------- */
+  {
+    id: "sd-1", track: "sd",
+    q: "How do you structure a UI system design answer? (Your method, asked implicitly every time)",
+    a: "Run five steps and say them out loud: frame the problem (users, scale, constraints), gather requirements — functional first, then non-functional (accessibility, performance, correctness, auditability) — draw the structure starting from UI states (empty/loading/error/stale/data), deep-dive the two riskiest areas, then close with trade-offs, failure modes, a migration path and how you'd measure success. Time-box it roughly 5/10/15/10/5 for a 45-minute round: a design that never leaves the boxes stage fails at senior level.",
+    points: [
+      "Open by restating: 'So the users are risk managers, the view is intraday, and it must be auditably correct?'",
+      "Name non-functional requirements before anyone asks — it's the senior tell",
+      "Draw states before components: every surface needs empty/loading/error/stale",
+      "Pick two deep dives (state management, rendering perf, a11y, testing) and go real depth",
+      "Close with what you'd cut if time or compliance demanded it",
+    ]
+  },
+  {
+    id: "sd-2", track: "sd",
+    q: "Design a shared component library / design system for risk dashboards.",
+    a: "Start from consumers: several ERT apps, several teams, Angular, possibly MFE. Layer it: design tokens (color/space/type plus semantic status tokens — within-tolerance, warning, breached, stale), primitive components (data grid, filter bar, KPI tile, chart wrapper, form controls, status badges, empty/error states), an a11y baseline baked in rather than bolted on (ARIA grid pattern, keyboard navigation, focus management, contrast), docs with usage guidelines, and governance: contribution model, review board, design partnership. Version it like an API — semver, changelog, deprecation window, codemods. Adoption is a strangler: pilot one app, new features consume the library first, migrate the rest on a schedule.",
+    points: [
+      "Tokens first: semantic status tokens keep 'breached' identical in every app",
+      "Bake a11y in: keyboard grid nav and screen-reader status announcements are defaults, not options",
+      "Test the library itself: unit + visual regression + a11y checks in CI",
+      "API discipline: typed inputs/outputs over DOM scraping; theming slots over forks",
+      "Name the trade-off: flexibility vs consistency — guard rails over escape hatches",
+      "Name the cost: contribution friction; mitigate with docs, office hours, a pilot app",
+    ]
+  },
+  {
+    id: "sd-3", track: "sd",
+    q: "Micro-frontends or modular monolith — how do you decide, and how do you design the shell?",
+    a: "MFEs earn their cost only with independent teams and independent release cadence; one team owning everything is better served by a well-factored monolith. If MFE is justified: a shell owns auth/session, routing, layout/navigation, error boundaries and telemetry; remotes own domain features. Integrate with Module Federation, an explicit shared-dependency scope (Angular/rxjs as singletons) and a written version-skew policy. Contracts first — typed feature events and URL state over reaching into each other's internals. Ship CI/CD per remote with integration smoke tests and remote provenance in telemetry. Plan failure: a remote that fails to load shows a fallback, never a blank shell.",
+    points: [
+      "Decide on team topology and deploy cadence, not fashion",
+      "Strangler migration: split at route level, ship one vertical slice first",
+      "Cross-MFE state lives in the URL or the server — shared client stores rot",
+      "Version skew is the daily pain: pin shared singletons, test the combos you support",
+      "A11y survives integration: focus management and route announcements across remote boundaries",
+      "Name the costs: duplicated dependencies, slower DX, integration-testing overhead",
+    ]
+  },
+  {
+    id: "sd-4", track: "sd",
+    q: "Design a real-time limit-breach monitoring dashboard for risk managers.",
+    a: "Requirements first: how many limits and rows, freshness (seconds vs minutes), who may act (acknowledge, escalate — maker-checker on approvals), PII/role visibility. Data flow: an aggregation service publishes a snapshot plus deltas over SSE or WebSocket with a polling fallback; every number carries an as-of timestamp. Model states explicitly: within tolerance, warning, breached, stale, unknown. The UI: a virtualized grid priority-sorted with breaches on top, a persistent breach banner, a detail drawer with lineage, and an acknowledge workflow that's optimistic with rollback and a visible audit trail. Announce new breaches with aria-live (assertive for critical); status is icon + text + color, never color alone. Batch incoming updates and throttle rendering so a burst doesn't freeze the grid.",
+    points: [
+      "Snapshot + deltas: initial load is a snapshot, the stream carries changes",
+      "Degraded mode is a feature: disconnected banner, last snapshot shown with a stale badge",
+      "Optimistic acknowledge with rollback beats a spinner on every action",
+      "Perf: OnPush/signal updates, batched writes, CDK virtual scroll for the rows",
+      "Auditability: every state change lands in an immutable history view (BCBS 239 traceability)",
+      "Trade-offs to name: WS vs SSE vs polling; client vs server aggregation; virtual scroll vs pagination",
+    ]
+  },
+  {
+    id: "sd-5", track: "sd",
+    q: "Make a 10,000-row risk data grid fast and accessible.",
+    a: "Virtualize first — CDK virtual scroll or equivalent — and push sort/filter/pagination to the server so the client never holds the whole dataset. Render discipline: OnPush + signals, track by identity, no method calls in templates, memoized computed columns, CSS containment on cells. Keep cells light: charts and editors render on demand with @defer, heavy math moves to a Web Worker, and updates arrive batched so a data burst doesn't thrash change detection. For accessibility use the ARIA grid pattern with full keyboard row/column navigation, per-cell status as text not just color, and polite announcements for data updates. Measure with INP and long tasks at p75 — lab numbers don't count.",
+    points: [
+      "Virtual scroll + server-side sort/filter/pagination is the base architecture",
+      "track by id; template method calls are the silent killer of change detection",
+      "Batch stream updates; throttle to animation frames",
+      "ARIA grid pattern: roving tabindex, arrow-key navigation, sticky headers done accessibly",
+      "Don't virtualize away the a11y tree — test with a screen reader early",
+      "Budget: under ~2ms per cell render; grid interaction under 200ms (INP)",
+    ]
+  },
+  {
+    id: "sd-6", track: "sd",
+    q: "What's your frontend performance budget, and how do you enforce it?",
+    a: "State budgets per metric and per route: LCP under 2.5s, INP under 200ms, CLS under 0.1 at the 75th percentile of real users, plus bundle caps per lazy chunk. Measure in the field (RUM), not just Lighthouse. Enforce in CI: bundle-size checks on every PR, Lighthouse CI on key journeys, and regression alerts on the RUM dashboard. Hit the budgets with route-level code splitting (loadComponent), @defer for heavy widgets, tree-shakeable standalone imports, hashed immutable assets with correct caching, and image/font policies. When something regresses, diagnose in order: TTFB, the LCP element, long tasks, then layout shifts.",
+    points: [
+      "Field data at p75 is the scorecard; lab tools are for diagnosis",
+      "CI gates stop the regression before the release does",
+      "@defer and loadComponent are the two biggest levers in modern Angular",
+      "Cache policy: hashed assets immutable, HTML no-cache",
+      "Know the top offenders: render-blocking JS, unoptimized images, late-arriving UI",
+      "Tie it to risk: a slow grid is an operational risk for time-sensitive decisions",
+    ]
+  },
+  {
+    id: "sd-7", track: "sd",
+    q: "What's your testing strategy for a platform-scale UI?",
+    a: "Build a pyramid weighted by business risk: unit tests for services and computed logic, TestBed component tests for interaction and state, HttpTestingController for API contracts, a thin Cypress layer over golden paths, and contract tests at MFE boundaries. The design system gets visual regression plus automated a11y checks. Decide what blocks the merge (unit, component, contract, a11y smoke) versus what warns (visual snapshots, perf budgets). In a risk platform the deepest coverage goes where errors cost most: breach workflows, maker-checker approvals, and anything feeding regulatory reporting — BCBS 239 wants traceability from screen to source data.",
+    points: [
+      "Weight tests by consequence, not by line coverage",
+      "Component tests catch state bugs; e2e only proves the golden path",
+      "Contract tests make MFE and API integration safe to deploy independently",
+      "A11y and visual regression in CI protect the design system",
+      "Flaky tests are a process smell: quarantine visibly, fix fast",
+      "Say the honest thing: 100% coverage is not the goal — risk coverage is",
+    ]
+  },
+  {
+    id: "sd-8", track: "sd",
+    q: "Design a UI for auditable, regulated workflows — maker-checker, as-of data.",
+    a: "Model the lifecycle explicitly: draft → pending approval → approved / rejected / expired, with the four-eyes rule enforced server-side but mirrored in the UI (the creator sees 'awaiting approver', not a fake approve button). Every number carries an as-of timestamp and a link to its lineage; every state change writes to an immutable audit trail the UI can show. Handle concurrency: optimistic locking with conflict resolution when two approvers open the same item. Mask PII by role, confirm destructive actions, and keep the approval workflow fully keyboard-operable and screen-reader clear — a compliance process nobody can operate with a keyboard isn't compliant.",
+    points: [
+      "State machine first: every transition named, timed, attributed",
+      "Server enforces the control; the UI models and explains it",
+      "As-of timestamps everywhere — intraday is not EOD",
+      "Conflict handling: version tokens, not last-write-wins",
+      "The audit view is a product surface, not a hidden log",
+      "WCAG on workflow screens is a legal exposure, not polish",
+    ]
+  },
 ];
 
 /* Ticker content */
@@ -881,14 +987,16 @@ const TICKER = [
   "DOCKER: MULTI-STAGE BUILD", "MODULE FEDERATION LIVE", "TEAMCITY → uDEPLOY", "JIRA: DONE = TESTED + REVIEWED",
   "WCAG 2.2 AA MANDATORY", "LCP < 2.5s", "INP < 200ms", "CLS < 0.1", "min-width: 0",
   "BCBS 239: TRACE EVERY NUMBER", "CCAR: SCENARIO → CAPITAL", "VaR 99% / 10-DAY", "EOD SNAPSHOT ≠ INTRADAY",
-  "LIMIT BREACH = WORKFLOW", "AS-OF TIMESTAMPS EVERYWHERE", "SEQUENCE DIAGRAM FIRST", "CODE REVIEW = REQUIREMENTS CHECK"
+  "LIMIT BREACH = WORKFLOW", "AS-OF TIMESTAMPS EVERYWHERE", "SEQUENCE DIAGRAM FIRST", "CODE REVIEW = REQUIREMENTS CHECK",
+  "SYSTEM DESIGN: REQUIREMENTS BEFORE BOXES"
 ];
 
 /* Day-of checklist */
 const CHECKLIST = {
   "Night before": [
     "Re-read this deck's unknown cards — start with the Angular tracks",
-    "Rehearse all three STAR stories out loud",
+    "Rehearse all five STAR stories out loud",
+    "Run one UI system design prompt out loud, timed to 45 minutes",
     "Test Zoom end-to-end: internet, camera, mic, lighting, screen share",
     "Skim Citi risk/tech news — one talking point",
     "Prepare 3 questions for the panel",
@@ -909,6 +1017,6 @@ const PLAN = [
   ["Day 3", "Forms + HTTP — reactive transfer form with cross-field validation; functional interceptors, error states, cancellation."],
   ["Day 4", "Testing day — one TestBed component spec, one HttpTestingController spec, one Cypress golden-path test. Review them like a lead would."],
   ["Day 5", "A11y + performance — modal focus flow, CDK virtual scroll, WCAG 2.2 AA checklist, LCP/INP/CLS diagnosis."],
-  ["Day 6", "Architecture + DevOps + risk domain — micro frontends, Docker, TeamCity/uDeploy, then drill the Risk Domain track out loud (BCBS 239, CCAR, limits)."],
-  ["Day 7", "ERT + leadership — 'Know the firm' twice, STAR polish (all three), design-review story, questions for the panel, Zoom setup check. Rest early."],
+  ["Day 6", "Architecture + DevOps + risk domain — micro frontends, Docker, TeamCity/uDeploy, then drill the Risk Domain track out loud (BCBS 239, CCAR, limits); close with one timed UI system design prompt."],
+  ["Day 7", "ERT + leadership — 'Know the firm' twice, STAR polish (all five), design-review story, questions for the panel, Zoom setup check. Rest early."],
 ];

@@ -449,7 +449,7 @@
   ).join("");
 
   /* ---------------- STAR autosave ---------------- */
-  ["star1", "star2", "star3"].forEach((id) => {
+  ["star1", "star2", "star3", "star4", "star5"].forEach((id) => {
     const ta = document.getElementById(id);
     ta.value = state.stars[id] || "";
     let t;

@@ -8,11 +8,17 @@ JavaScript/TypeScript, HTML5/CSS/Bootstrap, **Jasmine & Karma** and Cypress test
 UI system design with a11y/performance, DevOps (Git, JIRA, Agile/Scrum,
 TeamCity/uDeploy/Jenkins, Micro Frontends, Docker), **risk domain** (stress testing /
 CCAR, BCBS 239, VaR/ES, limit monitoring), and the systems-analysis + leadership
-material a senior hire is probed on — 72 flashcards across 9 tracks.
+material a senior hire is probed on — 80 flashcards across 10 tracks.
 
 The page is organized as a guided flow: drill deck → **React → Angular translation** → role &
-team brief → 7-day countdown → STAR stories, with the last-hour reference, Citi intel, and sources
+team brief → 7-day countdown → STAR stories → **UI system design**, with the last-hour reference, Citi intel, and sources
 colapsed behind one-tap folds so nothing overwhelms.
+
+The **UI system design** section (06) prepares the senior-weighted round: a five-step method, a
+non-functional checklist (a11y · perf · auditability), three worked designs (shared design system,
+micro-frontend shell vs monolith, live limit-breach dashboard), ten prompts to rehearse out loud, and a
+45-minute pacing table. The role brief also folds in the reported **interview process** (HR/assessment →
+Karat screen → technical panels → Superday/HR) with what each stage actually tests.
 
 The **React → Angular** section (02) teaches the mental conversion for React developers joining an
 Angular shop: a JSX→template crib sheet, a 19-row concept map (`useState` → `signal()`,
@@ -21,6 +27,14 @@ limit-breach monitor written in both frameworks side by side, six more real-worl
 (context→service, private routes→guards, controlled forms→reactive forms, `React.memo`→OnPush,
 RTL→TestBed, custom hooks→services/directives), plus a week-1 gotchas list and a ten-step
 conversion checklist folded away at the end.
+
+## Research notes
+
+[`research/what-to-expect.md`](research/what-to-expect.md) collects web research on what the interview
+itself looks like: the reported 3-round process (HR/assessment → Karat live screen → technical panels →
+Superday/HR), the Karat debug-in-a-repo format, live Citi UI/frontend job postings that show the real
+stack expectations, and where candidates lose points — each claim marked `[reported]` or `[official]`
+with source links (retrieved 2026-09-29).
 
 ## Run locally
 

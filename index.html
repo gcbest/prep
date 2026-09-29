@@ -65,6 +65,7 @@
             <a class="btn btn-primary" href="#deck">Start the deck</a>
             <a class="btn" href="#role">The role &amp; team</a>
             <a class="btn" href="#react">React → Angular</a>
+            <a class="btn" href="#sysdesign">System design</a>
             <a class="btn" href="#plan">Countdown</a>
           </div>
         </div>
@@ -82,7 +83,7 @@
       </div>
       <div class="statstrip" role="list" aria-label="Deck statistics">
         <div role="listitem"><span class="stat-num" id="statCards">—</span><span class="stat-lab">cards</span></div>
-        <div role="listitem"><span class="stat-num">9</span><span class="stat-lab">tracks</span></div>
+        <div role="listitem"><span class="stat-num">10</span><span class="stat-lab">tracks</span></div>
         <div role="listitem"><span class="stat-num" id="statKnown">0</span><span class="stat-lab">known</span></div>
         <div role="listitem"><span class="stat-num" id="statLeft">—</span><span class="stat-lab">to review</span></div>
       </div>
@@ -98,7 +99,7 @@
           <span class="step-no mono">02</span>
           <div>
             <strong>Own your stories</strong>
-            <p>Draft the three STAR slots now: a production fire, a disagreement, a team you leveled up. Rehearse them out loud.</p>
+            <p>Draft the five STAR slots now: a production fire, a disagreement, a team you leveled up, an impossible deadline, critical feedback. Rehearse them out loud.</p>
           </div>
         </li>
         <li class="step">
@@ -120,6 +121,7 @@
         <a href="#role">Role &amp; team</a>
         <a href="#plan">Countdown</a>
         <a href="#star">STAR</a>
+        <a href="#sysdesign">System design</a>
         <a href="#reference">Quick ref</a>
         <a href="#firm">Citi intel</a>
         <a href="#sources">Sources</a>
@@ -674,7 +676,7 @@ export class BreachApi {
               <tr><td>Jasmine &amp; Karma</td><td>track 05</td></tr>
               <tr><td>Git · JIRA · Agile/Scrum</td><td>track 07</td></tr>
               <tr><td>Web portals &amp; large-scale apps</td><td>track 06</td></tr>
-              <tr><td>Systems analysis &amp; design</td><td>tracks 06, 09</td></tr>
+              <tr><td>Systems analysis &amp; design</td><td>tracks 06, 09–10</td></tr>
             </table>
             <p class="ref-foot">Added advantage — TeamCity &amp; uDeploy/Jenkins, MongoDB/NoSQL, Cypress: tracks 05 &amp; 07.</p>
           </div>
@@ -700,6 +702,54 @@ export class BreachApi {
               <tr><td>PPNR</td><td>pre-provision net revenue in stress projections</td></tr>
               <tr><td>Maker-checker</td><td>dual control on money- and risk-moving actions</td></tr>
             </table>
+          </div>
+        </div>
+      </details>
+
+      <details class="fold fold-sub">
+        <summary>
+          The interview process — what the rounds actually test (reported)
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
+        <div class="ref-grid">
+          <div class="ref-card">
+            <h3>Round by round (~3–5 weeks)</h3>
+            <table>
+              <tr><td>1 · Screen</td><td>HR/recruiter call + online assessment (DS&amp;A, logical reasoning)</td></tr>
+              <tr><td>2 · Karat</td><td>live technical screen via Citi's third-party vendor (many SWE roles)</td></tr>
+              <tr><td>3 · Technical</td><td>coding + UI system design panels with leads &amp; architects</td></tr>
+              <tr><td>4 · Final</td><td>Superday-style techno-managerial + HR: fit, stories, comp</td></tr>
+            </table>
+            <p class="ref-foot">Self-reported candidate accounts, not an official process — confirm your loop with the recruiter.</p>
+          </div>
+          <div class="ref-card">
+            <h3>The Karat screen</h3>
+            <ul>
+              <li>~10 min theory: language/framework internals — answer with <strong>mechanism</strong>, not definitions</li>
+              <li>~50 min pair programming &amp; debugging: fix failing tests in an unfamiliar multi-class repo</li>
+              <li>Read the failing tests first, smallest fix, re-run everything, narrate as you go</li>
+              <li>A redo option is reported to exist — ask your recruiter if it applies to your screen</li>
+            </ul>
+            <p class="ref-foot">Rewriting code you haven't fully read is the classic failure mode.</p>
+          </div>
+          <div class="ref-card">
+            <h3>What senior weighting means</h3>
+            <ul>
+              <li><strong>UI system design carries more weight</strong> at mid/senior levels — see the system design section</li>
+              <li>Resume deep-dives: every tool you list gets “how did you build it, what went wrong”</li>
+              <li>Live coding must run and handle edge cases; state the complexity honestly</li>
+              <li>Leadership evidence: standards you set, reviews you led, people you grew</li>
+            </ul>
+          </div>
+          <div class="ref-card">
+            <h3>Final round &amp; comp</h3>
+            <ul>
+              <li>Four STAR stories minimum — ambiguity/tight deadline, disagreement, production incident, critical feedback</li>
+              <li>Two angles to have ready: <strong>regulatory constraints</strong> (speed vs risk controls) and <strong>safe AI-assisted development</strong> (what code/data you won't feed a tool; how you review its output)</li>
+              <li>“Why Citi, why this team” tied to the actual work — not the careers page</li>
+              <li>Compensation is discussed in the final HR round — know your number before you walk in</li>
+            </ul>
+            <p class="ref-foot">Full research with sources: <a href="research/what-to-expect.md">research/what-to-expect.md</a></p>
           </div>
         </div>
       </details>
@@ -730,7 +780,7 @@ export class BreachApi {
         <h2 id="starTitle">Your STAR stories</h2>
         <span class="sec-rule" aria-hidden="true"></span>
       </header>
-      <p class="star-lede">Behavioral rounds are won on prepared specifics, not charm. Draft three stories below — they autosave in this browser.</p>
+      <p class="star-lede">Behavioral rounds are won on prepared specifics, not charm. Draft five stories below — they autosave in this browser. Two angles to weave in where relevant: <strong>working under regulatory constraints</strong> (delivery speed vs risk controls) and <strong>safe AI-assisted development</strong> (what code or data you won't feed a tool, how you review its output).</p>
       <div class="star-grid">
         <label class="star-slot">
           <span class="star-title">The production fire</span>
@@ -747,13 +797,236 @@ export class BreachApi {
           <span class="star-hint">Mentoring, code/design reviews, or a standard you introduced — the person's growth and the quality metric that moved.</span>
           <textarea id="star3" rows="6" placeholder="S/T/A/R — one honest sentence each…"></textarea>
         </label>
+        <label class="star-slot">
+          <span class="star-title">The impossible deadline</span>
+          <span class="star-hint">An ambiguous requirement or a date that wouldn't move. How you scoped and negotiated, what you cut on purpose, and what shipped.</span>
+          <textarea id="star4" rows="6" placeholder="S/T/A/R — one honest sentence each…"></textarea>
+        </label>
+        <label class="star-slot">
+          <span class="star-title">The critical feedback</span>
+          <span class="star-hint">Feedback that stung — review comments, a failed delivery, a manager's note. What you changed, and the proof it worked.</span>
+          <textarea id="star5" rows="6" placeholder="S/T/A/R — one honest sentence each…"></textarea>
+        </label>
+      </div>
+    </section>
+
+    <!-- ============ SYSTEM DESIGN ============ -->
+    <section class="ref-sec shell" id="sysdesign" aria-labelledby="sdTitle">
+      <header class="sec-head">
+        <span class="sec-no mono">06</span>
+        <h2 id="sdTitle">UI system design — the senior round</h2>
+        <span class="sec-rule" aria-hidden="true"></span>
+        <span class="sec-note mono">method · 3 worked designs · prompts</span>
+      </header>
+      <p class="star-lede">Candidate reports put <strong>more weight on system design at AVP/VP/SVP</strong> — expect a 45–60 minute whiteboard-style conversation over Zoom. Nobody is looking for one “correct” diagram; they're listening for <strong>requirements discipline, trade-offs you can articulate, and operational thinking</strong> in a regulated bank. Companion flashcards: <strong>track 10 · System Design</strong>.</p>
+
+      <div class="ref-grid">
+        <div class="ref-card">
+          <h3>The 5-step method</h3>
+          <ol>
+            <li><strong>Frame</strong> — restate the problem; name users, scale, constraints</li>
+            <li><strong>Requirements</strong> — functional first, then non-functional, out loud</li>
+            <li><strong>Structure</strong> — draw states first (empty/loading/error/stale/data), then components &amp; data flow</li>
+            <li><strong>Deep-dive</strong> — pick the two riskiest areas and go real depth</li>
+            <li><strong>Close</strong> — trade-offs, failure modes, migration path, how you'd measure success</li>
+          </ol>
+          <p class="ref-foot">Time-box it ~5 / 10 / 15 / 10 / 5 min. A design that never leaves step 3 fails at senior level.</p>
+        </div>
+        <div class="ref-card">
+          <h3>Non-functional checklist — say these out loud</h3>
+          <table>
+            <tr><td>Accessibility</td><td>WCAG 2.2 AA — keyboard paths, ARIA patterns, status not by color alone</td></tr>
+            <tr><td>Performance</td><td>LCP &lt; 2.5s · INP &lt; 200ms · CLS &lt; 0.1, at p75 in the field</td></tr>
+            <tr><td>Correctness</td><td>as-of timestamps, intraday ≠ EOD, who can see PII</td></tr>
+            <tr><td>Auditability</td><td>maker-checker, immutable history, traceable numbers (BCBS 239)</td></tr>
+            <tr><td>Resilience</td><td>degraded modes: stale data, partial outage, retry/backoff</td></tr>
+            <tr><td>Evolution</td><td>versioning, deprecation, migration — never a big-bang rewrite</td></tr>
+          </table>
+        </div>
+        <div class="ref-card">
+          <h3>How the round is judged</h3>
+          <ul>
+            <li>Trade-offs stated <strong>with consequences</strong>: “chose X, costs Y, mitigated by Z”</li>
+            <li>Depth somewhere — state management, rendering performance, a11y, or testing</li>
+            <li>Regulatory instinct: risk &amp; controls named before polish</li>
+            <li>Communication: narrate, restate as you go, ask when unsure</li>
+            <li>Ownership signals: standards, reviews, mentoring — it's a Lead role</li>
+          </ul>
+        </div>
+        <div class="ref-card">
+          <h3>Where candidates lose points</h3>
+          <ul>
+            <li>Drawing boxes before clarifying requirements &amp; scale</li>
+            <li>Accessibility never mentioned — fatal on a UI role at a bank with a11y obligations</li>
+            <li>No failure states: what does the dashboard show when the feed dies?</li>
+            <li>“Rewrite it all” answers with no migration path or coexistence plan</li>
+            <li>Metrics quoted with no measurement plan (lab ≠ field)</li>
+            <li>MFE/monorepo enthusiasm with no costs named</li>
+          </ul>
+          <p class="ref-foot">Distilled from candidate reports — coaching, not a scoring rubric.</p>
+        </div>
+      </div>
+
+      <details class="fold fold-sub">
+        <summary>
+          Worked design A — shared component library &amp; design system for risk dashboards
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
+        <div class="ref-grid">
+          <div class="ref-card">
+            <h3>The prompt</h3>
+            <p class="ref-foot">“Five ERT apps each built their own grids, filter bars and KPI tiles. Design a shared UI layer for the risk platform.”</p>
+            <h3>Ask first</h3>
+            <ul>
+              <li>How many apps &amp; teams? Independent release cadence?</li>
+              <li>Angular versions in play, MFE setup today?</li>
+              <li>Is there a design partner, or engineering-led?</li>
+              <li>A11y target and compliance needs on these screens?</li>
+            </ul>
+          </div>
+          <div class="ref-card">
+            <h3>Structure the answer</h3>
+            <ol>
+              <li><strong>Tokens</strong> — color/space/type + semantic status tokens (within-tolerance, warning, breached, stale)</li>
+              <li><strong>Primitives</strong> — data grid, filter bar, KPI tile, chart wrapper, form controls, status badge, empty/error states</li>
+              <li><strong>A11y baseline baked in</strong> — ARIA grid pattern, keyboard nav, focus management, contrast</li>
+              <li><strong>Docs &amp; governance</strong> — usage guidelines, contribution model, review board, design partnership</li>
+              <li><strong>Versioning</strong> — semver, changelog, deprecation window, codemods</li>
+              <li><strong>Adoption</strong> — strangler: pilot one app, new features consume the library first, migrate the rest on a schedule</li>
+            </ol>
+          </div>
+          <div class="ref-card">
+            <h3>Deep dives &amp; trade-offs</h3>
+            <ul>
+              <li>Test the library itself: unit + visual regression + a11y checks in CI</li>
+              <li>API discipline: typed inputs/outputs over DOM scraping; theming slots over forks</li>
+              <li>Flexibility vs consistency — guard rails over escape hatches</li>
+              <li>Contribution friction is the real cost; mitigate with docs, office hours, a pilot</li>
+              <li>Shared across MFEs: pin it as a singleton package or version-skew will haunt you</li>
+            </ul>
+            <p class="ref-foot">Signal: you think in adoption and lifecycle, not just components.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="fold fold-sub">
+        <summary>
+          Worked design B — micro-frontend shell for the risk platform (vs modular monolith)
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
+        <div class="ref-grid">
+          <div class="ref-card">
+            <h3>The prompt</h3>
+            <p class="ref-foot">“The risk platform is one large Angular app owned by four teams. Design how it should be split and integrated — or argue it shouldn't.”</p>
+            <h3>Ask first</h3>
+            <ul>
+              <li>Team topology — who owns what, and do they release independently?</li>
+              <li>Shared auth/session and navigation today?</li>
+              <li>Cross-app journeys — does a breach workflow span teams?</li>
+              <li>How much version skew can the org tolerate?</li>
+            </ul>
+          </div>
+          <div class="ref-card">
+            <h3>Structure the answer</h3>
+            <ol>
+              <li><strong>Decide first</strong>: MFEs earn their cost only with independent teams &amp; release cadence — otherwise a well-factored monolith wins</li>
+              <li><strong>Shell owns</strong>: auth/session, routing, layout/navigation, error boundaries, telemetry</li>
+              <li><strong>Remotes own</strong>: domain features; Module Federation with an explicit shared-dependency scope (Angular/rxjs as singletons) + a written version-skew policy</li>
+              <li><strong>Contracts first</strong>: typed feature events and URL state — never reach into another remote's internals</li>
+              <li><strong>CI/CD per remote</strong>: integration smoke tests; telemetry carries remote provenance</li>
+              <li><strong>Plan failure</strong>: a remote that fails to load renders a fallback — never a blank shell</li>
+            </ol>
+          </div>
+          <div class="ref-card">
+            <h3>Deep dives &amp; trade-offs</h3>
+            <ul>
+              <li>Migration is a strangler: split at route level, ship one vertical slice first</li>
+              <li>Cross-MFE state lives in the URL or the server — shared client stores rot</li>
+              <li>Costs to name: duplicated deps, slower DX, integration-testing overhead</li>
+              <li>A11y survives integration: focus management &amp; route announcements across remote boundaries</li>
+              <li>Know when to stop: a fifth remote for a one-page feature is over-engineering</li>
+            </ul>
+            <p class="ref-foot">Signal: the decision is org-shaped, not technology-shaped.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="fold fold-sub">
+        <summary>
+          Worked design C — real-time limit-breach monitoring &amp; workflow
+          <span class="fold-ico" aria-hidden="true"></span>
+        </summary>
+        <div class="ref-grid">
+          <div class="ref-card">
+            <h3>The prompt</h3>
+            <p class="ref-foot">“Design the UI for a live limit-monitoring screen risk managers watch intraday — breaches need acknowledgment and escalation.”</p>
+            <h3>Ask first</h3>
+            <ul>
+              <li>How many limits and rows on screen? Grid or tiles?</li>
+              <li>Freshness: seconds or minutes? Intraday vs EOD snapshot?</li>
+              <li>Who may act? Maker-checker on approvals?</li>
+              <li>Role visibility — which fields are PII?</li>
+            </ul>
+          </div>
+          <div class="ref-card">
+            <h3>Structure the answer</h3>
+            <ol>
+              <li><strong>Data flow</strong> — aggregation service publishes snapshot + deltas over SSE/WebSocket, polling fallback; every number carries an as-of timestamp</li>
+              <li><strong>State model</strong> — within tolerance · warning · breached · stale · unknown, each rendered distinctly</li>
+              <li><strong>Surface</strong> — virtualized grid priority-sorted (breaches on top), persistent breach banner, detail drawer with lineage</li>
+              <li><strong>Workflow</strong> — acknowledge/escalate: optimistic with rollback, visible audit trail, four-eyes on approvals</li>
+              <li><strong>Announce</strong> — aria-live assertive for critical breaches; icon + text + color, never color alone</li>
+              <li><strong>Degrade</strong> — disconnected banner, last snapshot shown with a stale badge; batch updates and throttle rendering</li>
+            </ol>
+          </div>
+          <div class="ref-card">
+            <h3>Deep dives &amp; trade-offs</h3>
+            <ul>
+              <li>WS vs SSE vs polling: complexity, fallbacks, proxy friendliness in a bank</li>
+              <li>Client vs server aggregation — server wins on auditability</li>
+              <li>Virtual scroll vs pagination for regulator-facing completeness</li>
+              <li>Perf: OnPush/signal updates, batched writes, CDK virtual scroll; a burst must not freeze the grid</li>
+              <li>BCBS 239 angle: every state change lands in an immutable, traceable history</li>
+            </ul>
+            <p class="ref-foot">Signal: the degraded and audit states get as much attention as the happy path.</p>
+          </div>
+        </div>
+      </details>
+
+      <div class="ref-grid">
+        <div class="ref-card">
+          <h3>Ten prompts to practice out loud</h3>
+          <ol>
+            <li>The UI for a CCAR stress-test results workbench</li>
+            <li>A shared data grid used by 20 internal apps</li>
+            <li>A micro-frontend platform for the risk org — split &amp; integration</li>
+            <li>A live limit-breach monitoring &amp; workflow screen</li>
+            <li>A maker-checker approval queue for large exposures</li>
+            <li>A data-quality &amp; lineage viewer (BCBS 239)</li>
+            <li>The a11y strategy for a chart-heavy dashboard suite</li>
+            <li>A performance rescue: LCP is 6s on the risk dashboard</li>
+            <li>A testing strategy for a UI feeding regulatory reporting</li>
+            <li>Migrate a legacy risk tool to Angular 16+ without freezing delivery</li>
+          </ol>
+        </div>
+        <div class="ref-card">
+          <h3>45-minute pacing</h3>
+          <table>
+            <tr><td>0–5</td><td>restate, users, scale, constraints</td></tr>
+            <tr><td>5–15</td><td>requirements + non-functionals out loud</td></tr>
+            <tr><td>15–30</td><td>states → structure → data flow; two deep dives</td></tr>
+            <tr><td>30–40</td><td>trade-offs, failure modes, degraded states</td></tr>
+            <tr><td>40–45</td><td>migration + measurement; your questions for them</td></tr>
+          </table>
+          <p class="ref-foot">End with two questions that prove you were designing <em>their</em> system, not a generic one.</p>
+        </div>
       </div>
     </section>
 
     <!-- ============ REFERENCE (folded) ============ -->
     <details class="fold ref-sec shell" id="reference">
       <summary class="sec-head">
-        <span class="sec-no mono">06</span>
+        <span class="sec-no mono">07</span>
         <h2>Last-hour reference</h2>
         <span class="sec-rule" aria-hidden="true"></span>
         <span class="sec-note mono">8 cheat sheets · opens on tap</span>
@@ -843,7 +1116,7 @@ export class BreachApi {
     <!-- ============ KNOW THE FIRM ============ -->
     <section class="firm-sec shell" id="firm" aria-labelledby="firmTitle">
       <header class="sec-head">
-        <span class="sec-no mono">07</span>
+        <span class="sec-no mono">08</span>
         <h2 id="firmTitle">Know the firm</h2>
         <span class="sec-rule" aria-hidden="true"></span>
         <span class="sec-note mono">verified · sep 2026</span>
@@ -971,7 +1244,7 @@ export class BreachApi {
     <!-- ============ SOURCES (folded) ============ -->
     <details class="fold src-sec shell" id="sources">
       <summary class="sec-head">
-        <span class="sec-no mono">08</span>
+        <span class="sec-no mono">09</span>
         <h2>Sources &amp; further reading</h2>
         <span class="sec-rule" aria-hidden="true"></span>
         <span class="sec-note mono">verified links · opens on tap</span>
@@ -1004,6 +1277,15 @@ export class BreachApi {
             <li><a href="https://www.federalreserve.gov/supervisionreg/ccar.htm" target="_blank" rel="noopener">Federal Reserve — CCAR</a> · annual stress-test exercise; supervisory scenarios</li>
             <li><a href="https://www.bis.org/bcbs/publ/d424.htm" target="_blank" rel="noopener">BIS — Basel III: finalising post-crisis reforms</a> · the “Basel III endgame”; US agencies issued revised NPRs on <strong>Mar 19, 2026</strong> (Fed/OCC/FDIC)</li>
             <li>Team intel · Citi job postings for ERT / Risk Technology in Rutherford (stress testing, credit risk, ERT data) — read a few before the panel</li>
+          </ol>
+        </div>
+        <div class="firm-card">
+          <h3>Interview-process research</h3>
+          <ol class="src-list">
+            <li><a href="https://prachub.com/interview-guide/citi-software-engineer-interview-questions-guide-2026" target="_blank" rel="noopener">PracHub — Citi SWE interview guide (2026)</a> · reported rounds, Karat screen, where candidates lose points</li>
+            <li><a href="https://www.tryexponent.com/experiences/citi-group-senior-software-engineer-interview-39ca67" target="_blank" rel="noopener">Aced/Exponent — verified Citi senior SWE experience</a> · reported Karat format: ~10 min theory + ~50 min pair-debug</li>
+            <li><a href="https://nodeflair.com/companies/citi/interviews/senior-software-engineer" target="_blank" rel="noopener">Nodeflair — Citi senior SWE interviews</a> · 1,351 candidate entries</li>
+            <li><a href="research/what-to-expect.md">research/what-to-expect.md</a> · this deck's research write-up — every claim sourced &amp; marked reported/official</li>
           </ol>
         </div>
         <aside class="firm-card src-aside">
