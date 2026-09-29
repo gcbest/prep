@@ -420,7 +420,7 @@ kbd {
 /* ---------- quick nav (jump bar) ---------- */
 .qnav {
   position: sticky;
-  top: 2.85rem;
+  top: var(--topbar-h, 3.75rem);
   z-index: 55;
   background: color-mix(in srgb, var(--bg) 86%, transparent);
   backdrop-filter: blur(10px);
@@ -456,6 +456,11 @@ kbd {
 }
 .qnav a:hover { color: var(--ink); border-color: var(--line); }
 .qnav a.active { color: var(--bg); background: var(--ink); border-color: var(--ink); }
+
+/* anchor targets clear both sticky bars (topbar + quick nav) */
+main > section[id], main > details[id] {
+  scroll-margin-top: calc(var(--topbar-h, 3.75rem) + 3.4rem);
+}
 
 /* ---------- folded sections (progressive disclosure) ---------- */
 details.fold > summary { list-style: none; cursor: pointer; }
@@ -1354,7 +1359,6 @@ section, details.fold { scroll-margin-top: 6.4rem; }
   .steps { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
-  .qnav { top: 2.7rem; }
   .statstrip { grid-template-columns: repeat(2, 1fr); }
   .statstrip > div:nth-child(odd) { border-left: 0; padding-left: 0; }
   .statstrip > div:nth-child(n+3) { border-top: 1px solid var(--line); }

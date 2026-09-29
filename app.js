@@ -508,6 +508,15 @@
     navTargets.forEach((t) => spy.observe(t));
   }
 
+  /* ---------------- sticky bars: topbar height drives the quick-nav offset ---------------- */
+  const topbarEl = document.querySelector(".topbar");
+  const setTopbarH = () => {
+    if (topbarEl) document.documentElement.style.setProperty("--topbar-h", `${topbarEl.offsetHeight}px`);
+  };
+  setTopbarH();
+  window.addEventListener("resize", setTopbarH);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(setTopbarH); // webfont can change header height
+
   /* ---------------- boot ---------------- */
   applyTheme(document.documentElement.dataset.theme || "dark");
   $("#reviewToggle").setAttribute("aria-pressed", String(state.reviewOnly));
