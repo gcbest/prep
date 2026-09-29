@@ -478,6 +478,7 @@ details.fold[open] > summary .fold-ico::before { content: "–"; }
 details.fold > summary:hover .fold-ico { color: var(--ink); border-color: var(--ink); }
 .fold-sub {
   margin-top: 1.6rem;
+  margin-bottom: 1.6rem;
   padding-top: 1.15rem;
   border-top: 1px dashed var(--line);
 }
