@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, feat/risk-ui-interview-sprint]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
