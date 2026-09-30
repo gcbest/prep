@@ -1,60 +1,92 @@
-# ARC/PREP
+# Risk UI Interview Sprint
 
-A no-build Citi interview study deck for the **Lead UI Engineer / Senior UI Developer**
-role in Citi's **Enterprise Risk Technology (ERT)** — Rutherford, NJ, Zoom panel.
+One focused day to prepare for **Citi Enterprise Risk Technology's Senior Angular UI Developer** interview.
 
-The drill deck is tuned to the job description and team research: **Angular 16+**,
-JavaScript/TypeScript, HTML5/CSS/Bootstrap, **Jasmine & Karma** and Cypress testing,
-UI system design with a11y/performance, DevOps (Git, JIRA, Agile/Scrum,
-TeamCity/uDeploy/Jenkins, Micro Frontends, Docker), **risk domain** (stress testing /
-CCAR, BCBS 239, VaR/ES, limit monitoring), and the systems-analysis + leadership
-material a senior hire is probed on — 80 flashcards across 10 tracks.
+> Unofficial, independent study tool. Not affiliated with Citigroup.
 
-The page is organized as a guided flow: drill deck → **React → Angular translation** → role &
-team brief → 7-day countdown → STAR stories → **UI system design**, with the last-hour reference, Citi intel, and sources
-colapsed behind one-tap folds so nothing overwhelms.
+The interview content is about **Angular 16+** (Jasmine/Karma, RxJS, micro-frontends, Docker/CI-CD, risk-domain
+controls), while the prep website itself is implemented in **React + TypeScript** on purpose: Angular concepts are
+shown next to their closest React equivalents, with the places the analogy breaks down called out explicitly.
 
-The **UI system design** section (06) prepares the senior-weighted round: a five-step method, a
-non-functional checklist (a11y · perf · auditability), three worked designs (shared design system,
-micro-frontend shell vs monolith, live limit-breach dashboard), ten prompts to rehearse out loud, and a
-45-minute pacing table. The role brief also folds in the reported **interview process** (HR/assessment →
-Karat screen → technical panels → Superday/HR) with what each stage actually tests.
+## Prerequisites
 
-The **React → Angular** section (02) teaches the mental conversion for React developers joining an
-Angular shop: a JSX→template crib sheet, a 19-row concept map (`useState` → `signal()`,
-`useEffect` → `effect()`/`takeUntilDestroyed()`, `key` → `track`, React Router → guards), a
-limit-breach monitor written in both frameworks side by side, six more real-world translations
-(context→service, private routes→guards, controlled forms→reactive forms, `React.memo`→OnPush,
-RTL→TestBed, custom hooks→services/directives), plus a week-1 gotchas list and a ten-step
-conversion checklist folded away at the end.
+- Node.js 18+ (20 recommended)
+- npm
 
-## Research notes
+## Install and run
 
-[`research/what-to-expect.md`](research/what-to-expect.md) collects web research on what the interview
-itself looks like: the reported 3-round process (HR/assessment → Karat live screen → technical panels →
-Superday/HR), the Karat debug-in-a-repo format, live Citi UI/frontend job postings that show the real
-stack expectations, and where candidates lose points — each claim marked `[reported]` or `[official]`
-with source links (retrieved 2026-09-29).
-
-## Run locally
-
-Open `index.html` in a browser, or serve the folder with any static server:
-
-```sh
-python3 -m http.server
+```bash
+npm install
+npm run dev
 ```
 
-## Cross-device sync
+Open the printed local URL (Vite dev server). All progress is stored in your browser's localStorage — no account, no
+backend, no analytics.
 
-Progress and STAR notes are saved locally by default. To sync them between devices:
+## Test and build
 
-1. Create a **fine-grained GitHub personal access token** with only the **Gists: Read and write** permission. Do not commit or share this token.
-2. Open the app and enter the token in the sync panel.
-3. Click **Save to Gist**. The first save creates a private Gist and fills in its ID.
-4. On another device, enter the same token and Gist ID, then click **Load from Gist**.
+```bash
+npm test          # Vitest + React Testing Library
+npm run typecheck # TypeScript strict mode
+npm run build     # production build into dist/
+npm run preview   # preview the production build
+```
 
-The token is stored only in that browser's local storage. The private Gist contains `arcprep-state.json`, not the token. GitHub API access is made directly from the browser; if a token is revoked, use a new one.
+## Architecture overview
 
-## GitHub Pages
+- **Vite + React 18 + TypeScript (strict) + React Router (HashRouter)** — static, deployable to any static host.
+- **Tailwind CSS** — restrained enterprise aesthetic with dark mode.
+- **Zustand + localStorage persist** — versioned schema, auto-saved, import/export/reset.
+- **react-markdown + remark-gfm** — lightweight study-content rendering.
+- **Mermaid** (lazy-loaded) — editable architecture and sequence diagrams.
 
-This repository includes `.github/workflows/pages.yml`. After pushing `main`, enable **Settings → Pages → Source: GitHub Actions** if GitHub has not enabled it automatically. The workflow publishes the repository as a static site.
+Routes: `/`, `/diagnostic`, `/angular-bridge`, `/rxjs-state`, `/testing-lab`, `/coding-lab`, `/code-review`,
+`/system-design`, `/devops-controls`, `/risk-domain`, `/leadership`, `/mock-interview`, `/cheat-sheet`, `/review`,
+`/settings`.
+
+## Data / privacy statement
+
+- No data leaves your browser.
+- Progress, notes, STAR stories, and confidence scores persist in localStorage.
+- You can **export** everything as JSON and **import** it on another device (Settings → Data).
+- The schema is versioned and migrations are defensive.
+
+## How to edit the question/content data
+
+All seeded content lives in `src/data/`:
+
+- `questions.ts` — the interview question bank (category, priority, prompt, follow-ups, strong points, red flags).
+- `angularBridge.ts` — React → Angular concept cards and required Angular depth sections.
+- `rxjsScenarios.ts` — operator scenario drills and state classification.
+- `testingLab.ts` — test mappings and the RiskLimitComponent exercise.
+- `codingLab.ts` — coding exercises and rubric.
+- `codeReview.ts` — the flawed component and review findings.
+- `systemDesign.ts` — the risk-portal prompt, phases, matrix, and Mermaid templates.
+- `devopsControls.ts`, `securityRisk.ts`, `leadership.ts`, `mockInterview.ts`, `cheatSheet.ts` — remaining modules.
+
+Edit the arrays and the UI updates automatically. Question objects follow the `InterviewQuestion` type in `src/types.ts`.
+
+## Known limitations
+
+- The site does **not** run an Angular compiler; coding exercises use syntax-highlighted code panels and candidate notes.
+- Free-form answers are **self-scored** against rubrics — there is no semantic auto-grading.
+- Voice recording was intentionally omitted to keep the MVP simple; an "answer aloud" timer is provided instead.
+- The deterministic "priority recommendation" is a weighted formula, not AI.
+
+## One-day usage guide
+
+1. Open the app and set your interview start time on the dashboard.
+2. Run the **diagnostic** (≈20 min) to find your three weakest topics.
+3. Follow the **recommended next activity** through the day's schedule.
+4. Drill the **Angular-through-React cards** and **RxJS scenarios**.
+5. Do the **testing**, **coding**, and **code-review** labs.
+6. Design the **risk portal** and edit the Mermaid diagrams.
+7. Draft four **STAR-L stories** and practice aloud.
+8. Run the timed **mock interview**.
+9. Review the **low-confidence queue**, then print/copy the **cheat sheet**.
+
+## Deployment
+
+GitHub Pages deploys from `main` (and the `feat/risk-ui-interview-sprint` branch) via
+`.github/workflows/pages.yml`: install → test → build → publish `dist/`. The Vite build uses a relative base
+(`./`) and HashRouter, so it works under `https://<user>.github.io/<repo>/` with no server configuration.
